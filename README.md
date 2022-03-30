@@ -72,10 +72,10 @@ or
 $ bash src/runLR.sh -g  genome.fa -z genome.fa.size -1 Pac/ONT.fa.gz -x map-pb -t 10
 ```
 LRout:
-LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser.
-LR_sort.bam.bai	: Index of alignment file.
-LR_sort.depth	: SMS mapping coverage.
-LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
+LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser.  
+LR_sort.bam.bai	: Index of alignment file. 
+LR_sort.depth	: SMS mapping coverage.  
+LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
 LR_putative.ER  : Coordinates of putative LER breakages. Filtered (by the -ln and -lf options) from LR_clip.coverRate file.
 
 2. NGS read mapping, filtering and putative SER calling.
@@ -86,12 +86,12 @@ or
 ```
 $ bash src/runSR.sh -g  genome.fa  -z genome.fa.size  -1 NGS_pair1.fq.gz -2 NGS_pair2.fq.gz -t 10
 ```
-SRout:
-SR_sort.bam     : Filtered NGS alignment file, for view inspection in genome browser.
-SR_sort.bam.bai : Index of alignment file.
-SR_sort.depth   : NGS mapping coverage.	
-SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
-SR_putative.ER	: Coordinates of putative SER breakages. Filtered (by the -sn and -sf options) from SR_clip.coverRate file.
+SRout:  
+SR_sort.bam     : Filtered NGS alignment file, for view inspection in genome browser.  
+SR_sort.bam.bai : Index of alignment file.  
+SR_sort.depth   : NGS mapping coverage.	 
+SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
+SR_putative.ER	: Coordinates of putative SER breakages. Filtered (by the -sn and -sf options) from SR_clip.coverRate file.  
 
 Note:  
 If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(local alignment) option should be performed for generating clipping signal.  
@@ -102,10 +102,10 @@ $ bash src/runAQI.sh -g  Genome.fasta -z  Genome.fasta.size -e SRout/SR_eff.size
 ``` 
 Main output(runAQI):
 
-locER_out/final.SER.out	: Exact coordinates of SER breakage, supported by SMS.
-strER_out/final.LER.out	: Exact coordinates of LER breakage, supported by NGS.
-regional.Report : Statistics for regional metrics.
-final.Report : Summary quality metrics for single segment and whole-assembly.
+locER_out/final.SER.out	: Exact coordinates of SER breakage, supported by SMS.  
+strER_out/final.LER.out	: Exact coordinates of LER breakage, supported by NGS.  
+regional.Report : Statistics for regional metrics.  
+final.Report : Summary quality metrics for single segment and whole-assembly.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)
 
 Note:       
