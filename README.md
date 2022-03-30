@@ -32,7 +32,7 @@ $ cd CRAQ/example && bash run_example.sh
 CRAQ intergrates the reads-mapping status (including reads coverage, clipping signals) of NGS short-reads and SMS long-reads to identify SER and LER breakpoint. The process is simple to run, requiring as input an assembly in FASTA(.fa) format, a sequence size file(.size) and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data. Alternatively, the user can map the reads to the assembly in advance and provide two BAM files as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-ont’ for ONT and ‘map-pb’ for PacBio CLR library) options were selected for genomic short-read and long-read mapping, respectively.
 
 #### Usage
-When mapping alignment file (.bam) are provided: (recommended). Important: sorting and indexing all bam files before running the pipeline is required.
+When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
 $ craq  -g  genome.fa -z genome.fa.size -lr SMS_sort.bam -sr NGS_sort.bam
 ```     
