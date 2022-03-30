@@ -71,12 +71,12 @@ or
 ```     
 $ bash src/runLR.sh -g  genome.fa -z genome.fa.size -1 Pac/ONT.fa.gz -x map-pb -t 10
 ```
-LRout:
+LRout:  
 LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser.  
 LR_sort.bam.bai	: Index of alignment file. 
 LR_sort.depth	: SMS mapping coverage.  
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-LR_putative.ER  : Coordinates of putative LER breakages. Filtered (by the -ln and -lf options) from LR_clip.coverRate file.
+LR_putative.ER  : Coordinates of putative LER breakages. Filtered (by the -ln and -lf options) from LR_clip.coverRate file.  
 
 2. NGS read mapping, filtering and putative SER calling.
 ```
@@ -100,8 +100,7 @@ If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(lo
 ```
 $ bash src/runAQI.sh -g  Genome.fasta -z  Genome.fasta.size -e SRout/SR_eff.size  -c SRout/SR_putative.ER -C LRout/LR_putative.ER  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
-Main output(runAQI):
-
+Main output(runAQI):  
 locER_out/final.SER.out	: Exact coordinates of SER breakage, supported by SMS.  
 strER_out/final.LER.out	: Exact coordinates of LER breakage, supported by NGS.  
 regional.Report : Statistics for regional metrics.  
