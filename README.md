@@ -2,7 +2,7 @@
 ### Pinpoint assembly error for genomic assessing and correcting
 
 ## Summary
-CRAQ (Clipping Reveals Assembly Quality), a reference-free tool that precisely pinpoints genome assembly errors. CRAQ can identify small-scale local error (SER) and large-scale structural error (LER) using a combinative alignment evidence of short NGS and long SMS reads, and then intergrate SER/LER calling into a comprehensive assembly quality indicator-AQI. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction if user needed. This document has the information on how to run CRAQ.
+CRAQ (Clipping information for Revealing Assembly Quality), a reference-free tool that precisely pinpoints genome assembly errors. CRAQ can identify small-scale local error (SER) and large-scale structural error (LER) using a combinative alignment evidence of short NGS and long SMS reads, and then intergrate SER/LER calling into a comprehensive assembly quality indicator-AQI. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction if user needed. This document has the information on how to run CRAQ.
 
 ## Installation
 
