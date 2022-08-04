@@ -7,7 +7,7 @@ CRAQ (Clipping information for Revealing Assembly Quality), a reference-free too
 ## Installation
 
 ### Requirements:
-CRAQ should install on most standard flavors of Linux (OSX and Windows are currently under development). Before running CRAQ, you need to make sure that several pieces of software and/or modules are installed on the system:
+CRAQ should install on most standard flavors of Linux. Before running CRAQ, you need to make sure that several pieces of software and/or modules are installed on the system:
 
 1. SAMtools((1.3.1+)) library for accessing SAM/BAM files, available from SourceForge:
     SAMtools: http://sourceforge.net/projects/samtools/files/
@@ -32,7 +32,7 @@ $ cd CRAQ/example && bash run_example.sh
 CRAQ intergrates the reads-mapping status (including reads coverage, clipping signals) of NGS short-reads and SMS long-reads to identify SER and LER breakpoint. The process is simple to run, requiring as input an assembly in FASTA(.fa) format, a sequence size file(.size) and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data. Alternatively, the user can map the reads to the assembly in advance and provide two BAM files as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-ont’ for ONT and ‘map-pb’ for PacBio CLR library) options were selected for genomic short-read and long-read mapping, respectively.
 
 #### Usage
-So easy! When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
+When alignment files (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
 $ craq  -g  genome.fa -z genome.fa.size -lr SMS_sort.bam -sr NGS_sort.bam
 ```     
