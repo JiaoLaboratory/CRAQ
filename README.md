@@ -42,9 +42,7 @@ $ craq  -g  genome.fa -z genome.fa.size -lr SMS_query.fq.gz -sr NGS_pair1.fq.gz,
 ```
 Note:
 Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
-```
-$ conda install seqkit   
-```
+
 i.e. split long-read sequences into 4 parts
 ```
 $ seqkit split SMS_query.fa  -p 4 -f
