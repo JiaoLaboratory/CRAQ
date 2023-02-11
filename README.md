@@ -87,10 +87,10 @@ or
 $ bash src/runSR.sh -g  genome.fa  -z genome.fa.size  -1 NGS_pair1.fq.gz -2 NGS_pair2.fq.gz -t 10
 ```
 SRout:
-SR_sort.bam     : Filtered NGS alignment file, for view inspection in genome browser. 
-SR_sort.bam.bai : Index of alignment file. 
-SR_sort.depth   : NGS mapping coverage.	 
-SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation. 
+SR_sort.bam     : Filtered NGS alignment file, for view inspection in genome browser.  
+SR_sort.bam.bai : Index of alignment file.  
+SR_sort.depth   : NGS mapping coverage.  
+SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
 SR_putative.ER	: Coordinates of putative small-scale errors or haplotype switch breakages. Filtered from SR_clip.coverRate file.
 
 Note:  
