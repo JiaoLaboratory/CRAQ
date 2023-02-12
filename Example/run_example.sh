@@ -1,4 +1,3 @@
-
 #Get size file
 rm -rf SRout LRout runAQI_out
 perl ../src/fetch_size.pl Genome.fa >Genome.fa.size
