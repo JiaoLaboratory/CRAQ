@@ -20,7 +20,7 @@ Place the SAMtools and minimap2 executable in your path.
 ### Install
 
 ```
-$ git clone https://github.com/kunproj/CRAQ.git
+$ git clone https://github.com/JiaoLaboratory/CRAQ.git
 ```
 ## Quick Start
 ```
