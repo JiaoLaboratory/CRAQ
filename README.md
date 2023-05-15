@@ -84,14 +84,14 @@ $ bash src/runSR.sh -g  Genome.fa  -z Genome.fa.size  -1 NGS_sort.bam
 ```
 or
 ```
-$ bash src/runSR.sh -g  Genome.fa  -z Genome.fa.size  -1 NGS_R1.fq.gz -2 NGS_R2.fq.gz -t 10
+$ bash src/runSR.sh -g  Genome.fa  -z Genome.fa.size  -1 NGS_R1.fa.gz -2 NGS_R2.fa.gz -t 10
 ```
 SRout:  
 SR_sort.bam     : Filtered NGS alignment file, for view inspection in genome browser.  
 SR_sort.bam.bai : Index of alignment file.  
 SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-SR_putative.ER	: Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.
+SR_putative.ER.HR	: Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.
 
 Note:  
 If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(local alignment) option should be performed for generating clipping signal.  
