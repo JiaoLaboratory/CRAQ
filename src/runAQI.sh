@@ -193,5 +193,5 @@ perl $src/final_short_report_minlen.pl runAQI_out/tmp_sequence.HR.stat  0.85 $re
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
-rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ 
+rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp*
 echo -e "CRAQ analysis is finished. Check current directory runAQI_out for final results!\n"
