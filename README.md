@@ -2,7 +2,7 @@
 ### Pinpoint assembly errors for genomic assessing and correcting
 
 ## Summary
-CRAQ (Clipping Reveals Assembly Quality), a reference-free genome assembly evaluator could assess assembly accuracy and provide detailed assembly error information. This information includes precise locations of small-scale local errors (SERs), large-scale structural errors (LERs), and regional and overall classified AQI metrics (S-AQI & L-AQI) for assembly validation. CRAQ considers the haplotype features in diploid or polyploid genomes, and provide precise locus of heterozygous regions (SHRs & LHRs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction. This document has the information on how to run CRAQ.
+CRAQ (Clipping Reveals Assembly Quality), a reference-free genome assembly evaluator could assess assembly accuracy and provide detailed assembly error information. This information includes precise locations of small-scale local errors (SERs), large-scale structural errors (LERs), and regional and overall classified AQI metrics (S-AQI & L-AQI) for assembly validation. CRAQ considers the haplotype features, and provide precise locus of heterozygous regions (SHRs & LHRs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction. This document has the information on how to run CRAQ.
 
 ## Installation
 
