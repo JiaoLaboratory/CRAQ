@@ -102,13 +102,16 @@ $ bash src/runAQI.sh -g  Genome.fasta -z  Genome.fasta.size -e SRout/SR_eff.size
 ``` 
 Main output(runAQI_out):  
 
-locER_out/out_final.SER.out	: Exact coordinates of small regional errors.  
-locER_out/out_final.SHR.out     : Exact coordinates of small heterozygous indels.  
-strER_out/out_final.LER.out	: Exact coordinates of large structral error breakage.  
-strER_out/out_final.LHR.out	: Exact coordinates of structral heterozygous variants.  
+locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
+locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
+strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakage.  
+strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)
+
+Load CRAQ output to IGV:  
+![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Example/example.png)  
 
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
