@@ -1,6 +1,6 @@
 src=`cd $(dirname $0); pwd -P`
 pipline=$(basename $0)
-Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
+Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fa -z  Genome.fa -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
 
 name="out"
 skewned_rate=0.1
@@ -183,9 +183,14 @@ perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.
 perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.HR $norm_window $norm_window $Eff_size $HRname  >runAQI_out/tmp_sequence.HR.stat
 
 echo -e "[M::worker_pipeline:: Create regional metrics]"
-perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window ER.tmp_N.stat >runAQI_out/out_regional_ER.Report.tmp
-perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window HR.tmp_N.stat >runAQI_out/out_regional_HR.Report.tmp
-perl $src/merge_regional_report.pl runAQI_out/out_regional_HR.Report.tmp runAQI_out/out_regional_ER.Report.tmp  >runAQI_out/out_regional.Report
+#perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window ER.tmp_N.stat >runAQI_out/out_regional_ER.Report.tmp
+#perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window HR.tmp_N.stat >runAQI_out/out_regional_HR.Report.tmp
+#perl $src/merge_regional_report.pl runAQI_out/out_regional_HR.Report.tmp runAQI_out/out_regional_ER.Report.tmp  >runAQI_out/out_regional.Report
+
+echo -e "-w $regional_window"
+
+perl $src/regional_AQI.pl $ref_fa_size $regional_window $regional_window runAQI_out/tmp_merged.loc.str.ER >runAQI_out/out_regional.report.new
+
 
 echo -e "[M::worker_pipeline:: Create final report]"
 perl $src/final_short_report_minlen.pl runAQI_out/tmp_sequence.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
@@ -193,5 +198,10 @@ perl $src/final_short_report_minlen.pl runAQI_out/tmp_sequence.HR.stat  0.85 $re
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
-rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp*
+perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LER.out >runAQI_out/strER_out/out_final.LER.bed
+perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LHR.out >runAQI_out/strER_out/out_final.LHR.bed
+perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/locER_out/out_final.SER.out >runAQI_out/locER_out/out_final.SER.bed
+perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/locER_out/out_final.SHR.out >runAQI_out/locER_out/out_final.SHR.bed
+
+#rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp
 echo -e "CRAQ analysis is finished. Check current directory runAQI_out for final results!\n"
