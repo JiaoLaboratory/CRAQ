@@ -109,7 +109,8 @@ strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous varian
 out_regional.Report : Statistics for regional genomic metrics.  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)
-
+Load to IGV: 
+![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Example/Example.png)
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
 Load CRAQ output to IGV:
