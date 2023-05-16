@@ -117,7 +117,7 @@ my ($short_input1,$short_input2)=(split/,/,$short_input)[0,1];
 	unless($break =~/[TF]/){die "\nError: $break -bk T or F\n";}
 
 	if($mincontigsize < 0){die "\nError: -ctgs $mincontigsize Minimum fragment size is wrong, please check\n";}
-	if($regional_window < 10000){die "\nError: -rw $regional_window  Regional window (minimum 10000) is wrong, please check\n";}
+	#if($regional_window < 10000){die "\nError: -rw $regional_window  Regional window (minimum 10000) is wrong, please check\n";}
 	if($sms_coverage<=0){die "\nError: -avgl $sms_coverage SMS coverage is wrong, please check\n";}
         if($ngs_coverage<=0){die "\nError: -avgs $ngs_coverage NGS coverage is wrong, please check\n";}
 	if($thread < 1  ){die "\nError: -t $thread \n";}
