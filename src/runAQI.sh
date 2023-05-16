@@ -183,14 +183,7 @@ perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.
 perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.HR $norm_window $norm_window $Eff_size $HRname  >runAQI_out/tmp_sequence.HR.stat
 
 echo -e "[M::worker_pipeline:: Create regional metrics]"
-#perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window ER.tmp_N.stat >runAQI_out/out_regional_ER.Report.tmp
-#perl $src/weight_regional_QER.pl $ref_fa_size $regional_window $regional_window HR.tmp_N.stat >runAQI_out/out_regional_HR.Report.tmp
-#perl $src/merge_regional_report.pl runAQI_out/out_regional_HR.Report.tmp runAQI_out/out_regional_ER.Report.tmp  >runAQI_out/out_regional.Report
-
-echo -e "-w $regional_window"
-
-perl $src/regional_AQI.pl $ref_fa_size $regional_window $regional_window runAQI_out/tmp_merged.loc.str.ER >runAQI_out/out_regional.report.new
-
+perl $src/regional_AQI.pl $ref_fa_size $regional_window $regional_window runAQI_out/tmp_merged.loc.str.ER >runAQI_out/out_regional.bdg
 
 echo -e "[M::worker_pipeline:: Create final report]"
 perl $src/final_short_report_minlen.pl runAQI_out/tmp_sequence.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
