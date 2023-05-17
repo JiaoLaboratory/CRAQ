@@ -167,9 +167,9 @@ system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $sh
 
 print "\nRunning CRAQ benchmark analysis ......\n";
 
-print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break  \n";
+print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break  \n";
 
-system("bash $bin_path/../src/runAQI.sh -g $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break ");
+system("bash $bin_path/../src/runAQI.sh -g $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break ");
 
 
 
