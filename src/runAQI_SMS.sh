@@ -154,6 +154,7 @@ perl $src/final_short_report_minlen.pl runAQI_out/sequence.HR.stat  0.85 $report
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
+mv LRout/uncertain_region.bed runAQI_out/
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LER.out >runAQI_out/strER_out/out_final.LER.bed
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LHR.out >runAQI_out/strER_out/out_final.LHR.bed
 
