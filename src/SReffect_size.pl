@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 my $srdep=($ARGV[0]);
 open IN,$srdep;
-my $tmp_out="LRout/tmp.nonmap.loc";
+my $tmp_out="LRout/Nonmap.loc";
 open OUT,">$tmp_out";
 
 while (<IN>){
@@ -17,4 +17,4 @@ for ( sort keys %depmin ){
 
 print "$_\t$depmin{$_}\n";
 }
-
+close OUT;

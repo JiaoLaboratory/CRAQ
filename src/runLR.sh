@@ -144,10 +144,10 @@ echo -e "[M::worker_pipeline:: Collect potential LER]"
    	perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"   LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.softclip.tmp"
 	perl -alne  'print if($F[5]<0.1)' LRout/$LRname"_clip.coverRate.softclip.tmp" |cut  -f -5 >LRout/$LRname"_putative.ER.HR"
 
-perl $src/get_nonmap_region.pl LRout/tmp.nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >LRout/tmp.nonmap.bed
-perl $src/search_ambiguous_region.pl LRout/$LRname"_clip.coverRate.filter" LRout/tmp.nonmap.bed >LRout/uncertain_region.bed
+perl $src/get_nonmap_region.pl LRout/Nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >LRout/Nonmap.bed
+perl $src/search_ambiguous_region.pl LRout/$LRname"_clip.coverRate.filter" LRout/Nonmap.bed >LRout/uncertain_region.bed
 
-rm LRout/$LRname"_clipped.cov.tmp"  LRout/tmp.nonmap*
+rm LRout/$LRname"_clipped.cov.tmp"  LRout/Nonmap*
 
 #echo -e "\n##########################################################################################\n"
 echo -e "LR clipping analysis completed. Check current directory LRout for final results!\n"
