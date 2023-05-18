@@ -34,12 +34,13 @@ CRAQ intergrates the reads-mapping status (including reads coverage, clipping si
 #### Usage
 When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
-$ craq  -g  Genome.fa -z Genome.fa.size -lr SMS_sort.bam -sr NGS_sort.bam
+$ craq  -g  Genome.fa -z Genome.fa.size -lr SMS_sort.bam -sr NGS_sort.bam   [-lr or -sr at least one is needed]
 ```     
 If only sequencing reads are available, By default, read mapping is implemented using Minimap2.   
 ```
 $ craq  -g  Genome.fa -z Genome.fa.size -lr SMS.fa.gz -sr NGS_R1.fa.gz,NGS_R2.fa.gz
-```
+``
+
 Note:
 Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
 ```
