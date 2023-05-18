@@ -123,5 +123,5 @@ perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/locER_out/
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/locER_out/out_final.SHR.out >runAQI_out/locER_out/out_final.SHR.bed
 
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp*  runAQI_out/strER_out/*_putative* 
-#rm  runAQI_out/tmp_merged*
+rm  runAQI_out/tmp_merged*
 echo -e "CRAQ analysis is finished. Check current directory runAQI_out for final results!\n"
