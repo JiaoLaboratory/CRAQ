@@ -3,6 +3,7 @@ src=`cd $(dirname $0); pwd -P`
 SRname="SR"
 cutoff=0.25
 SRavg_depth=100
+mapquality=20
 t=5
 minclip_num=2
 #srbk_cutoff=0.75
@@ -20,15 +21,16 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 sr_sorted.bam \n or \t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 fq1.gz -2 fq2.gz  -t 10 \n\t[default: -f 0.75 -m 2 -a 100 -t 5]"
+Usage="\nUsage:\n\t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 sr_sorted.bam \n or \t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 fq1.gz -2 fq2.gz  -t 10 \n\t[default: -q 20 -f 0.75 -m 2 -a 100 -t 5]"
 
-while getopts "g:z:1:2:f:m:a:t:" opt
+while getopts "g:z:1:2:q:f:m:a:t:" opt
 do
     case $opt in
         g)	ref_fa=$OPTARG ;;
         z)	ref_fa_size=$OPTARG ;;
         1)	query_1=$OPTARG ;;
         2)	query_2=$OPTARG ;;
+	q)	mapquality=$OPTARG ;;
 	m)	minclip_num=$OPTARG ;;
 	f)	cutoff=$OPTARG ;;
 	a)	SRavg_depth=$OPTARG ;;
@@ -86,7 +88,7 @@ if [[ "$query_1_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 
 	        input_bam=$query_1
 		echo -e "Skipping alignment::\n[M::worker_pipeline:: Filtering bamfiles]"
-	samtools view -h -q 20 -F 1796  $input_bam  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -S -b -@ $t -  -o SRout/$SRname"_sort.bam"
+	samtools view -h -q $mapquality -F 1796  $input_bam  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -S -b -@ $t -  -o SRout/$SRname"_sort.bam"
 		samtools index SRout/$SRname"_sort.bam"
 	fi
 	
@@ -108,7 +110,7 @@ if [[ "$query_1_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
                 fi
 
 	        echo -e "worker_pipeline:: NGS reads aligning and filtering"
-		minimap2 -ax sr -R "@RG\tID:foo\tSM:bar1\tLB:lib" $ref_fa  $query_1 $query_2  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -q 20 -F 1796 -S -b -@ $t -  -o SRout/$SRname"_unsort.bam"
+		minimap2 -ax sr -R "@RG\tID:foo\tSM:bar1\tLB:lib" $ref_fa  $query_1 $query_2  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -q $mapquality -F 1796 -S -b -@ $t -  -o SRout/$SRname"_unsort.bam"
 		echo -e "[M::worker_pipeline:: Sort bamfiles]"
       		samtools sort SRout/$SRname"_unsort.bam"   -@ $t -o SRout/$SRname"_sort.bam" 
       		rm SRout/$SRname"_unsort.bam" && samtools index SRout/$SRname"_sort.bam" 

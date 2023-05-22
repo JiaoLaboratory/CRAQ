@@ -6,6 +6,7 @@ LRname="LR"
 minclip_num=2
 minbkrate=0.4
 LRavg_depth=100
+mapquality=20
 x="map-pb";
 t=5
 
@@ -21,9 +22,9 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -f minbkrate\nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -f minbkrate -a 100"
+Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -q mapq -f minbkrate\nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f minbkrate -a 100"
 
-while getopts "a:g:x:z:1:m:f:t:" opt
+while getopts "a:g:x:z:1:m:f:q:t:" opt
 do
     case $opt in
         g)      ref_fa=$OPTARG ;;
@@ -32,6 +33,7 @@ do
 	m)	minclip_num=$OPTARG;;
 	a)	LRavg_depth=$OPTARG;;
 	f)	minbkrate=$OPTARG;;
+	q)	mapquality=$OPTARG;;
 	t)      t=$OPTARG;;
 	x)	x=$OPTARG;;
         ?)
@@ -91,7 +93,7 @@ if [[ "$inquery_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 
      input_bam=$inquery
      echo -e "[M::worker_pipeline:: Filtering bamfiles]"
-     samtools view -h -q 20 -F 1796 -@ $t $input_bam |  perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
+     samtools view -h -q $mapquality -F 1796 -@ $t $input_bam |  perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
      samtools index LRout/$LRname"_sort.bam"
      fi
 
@@ -118,7 +120,7 @@ if [[ "$inquery_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 	 rm  LRout/tmp_bam/*_sort.bam*
        	 input_bam="LRout/tmp_bam/tmp_lr_merge.bam"
        	 echo -e "[M::worker_pipeline:: Filtering bamfiles]"
-         samtools view -h -q 20 -F 1796  $input_bam -@ $t | perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
+         samtools view -h -q $mapquality -F 1796  $input_bam -@ $t | perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
          samtools index LRout/$LRname"_sort.bam"
 	rm -r LRout/tmp_bam/
      fi	 
