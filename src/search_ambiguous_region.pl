@@ -11,7 +11,7 @@ chomp;
 my ($chr,$s,$e)=(split/\s+/)[0,1,2];
 	for my $error_chr(keys %hash){
         next if($chr ne $error_chr );
-         for my $error_loc (keys $hash{$error_chr}){
+         for my $error_loc (keys %{$hash{$error_chr}}){
         if($error_loc <= ($e+$dis) && $error_loc >=($s-$dis) ){
        $common{$_}=1;
        }
