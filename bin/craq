@@ -28,6 +28,7 @@ my $min_gap_size=10;
 my $sms_coverage=100;
 my $ngs_coverage=100;
 my $map="map-hifi";
+my $mapq=20;
 my $thread=5;
 
 my $msg            = "\nCRAQ Version: 1.0.9-alpha \n\nPlease provide appropriate parameters!\n\nUsage:\t $0  -g  genome_seq -lr lr_sort.bam -sr  sr_sort.bam\n or\t $0  -g  genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz \n";
@@ -53,6 +54,7 @@ GetOptions(             'h|help'                      => \$help,
 			'gm|gapmodel=i'		=>\$gapmodel,
 			'b|break=s'		=>\$break,
 			'x|map=s'             =>\$map,
+			'q|mapq:i'		=>\$mapq,
                         't|thread:i'                      => \$thread,
                 ) or pod2usage(2);
 pod2usage(-msg=>$msg,-exitval=>1,-verbose=>99, -sections=>'NAME|SYNOPSIS|AUTHOR|CONTACT') if ($help);
@@ -137,6 +139,7 @@ print "Gap[N] is treated with (-gm): $gapmodel:$model\n";
 print "Minimum gapsize(-mgs): $min_gap_size\n";
 print "Break chimera fragments (-b): $break\n";
 print "Mapping SMS reads use (-x): $map\n";
+print "Mapping quality (-q): $mapq\n";
 print "Alignment thread(-t): $thread\n";
 
 print "-------------------------Start Running------------------------\n";
@@ -146,19 +149,19 @@ my $genome_size="seq.size";
 if (  -e $long_input ){
 	if ( -e $short_input1 or -e $short_input2){
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
-print "CMD: $bin_path/../src/runLR.sh -g $genome_seq -x $map  -z $genome_size -1 $long_input  -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread \n";
-system("bash $bin_path/../src/runLR.sh -g $genome_seq -x $map -z $genome_size  -1 $long_input -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread " );
+print "CMD: $bin_path/../src/runLR.sh -g $genome_seq -x $map  -z $genome_size -1 $long_input -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread \n";
+system("bash $bin_path/../src/runLR.sh -g $genome_seq -x $map -z $genome_size  -1 $long_input -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread " );
 
 print "Running NGS short-reads CRAQ analysis ......\n";
 if(@num==2){
-print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -2 $short_input2 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread \n";
+print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -2 $short_input2 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread \n";
 
-system("bash $bin_path/../src/runSR.sh -g $genome_seq -z $genome_size  -1 $short_input1 -2 $short_input2 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
+system("bash $bin_path/../src/runSR.sh -g $genome_seq -z $genome_size  -1 $short_input1 -2 $short_input2 -q $mapq  -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
 
 if(@num==1){
-print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread\n";
+print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread\n";
 
-system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
+system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
 print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break  \n";
@@ -168,8 +171,8 @@ system("bash $bin_path/../src/runAQI.sh -g $genome_seq  -z $genome_size   -e LRo
 
 if (  -e $long_input && ! -e $short_input1 && ! -e $short_input2 ){
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
-print "CMD: $bin_path/../src/runLR.sh -g $genome_seq -x $map  -z $genome_size -1 $long_input  -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread \n";
-system("bash $bin_path/../src/runLR.sh -g $genome_seq -x $map -z $genome_size  -1 $long_input -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread " );
+print "CMD: $bin_path/../src/runLR.sh -g $genome_seq -x $map  -z $genome_size -1 $long_input -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread \n";
+system("bash $bin_path/../src/runLR.sh -g $genome_seq -x $map -z $genome_size  -1 $long_input -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -a $sms_coverage -t $thread " );
 
 print "\nRunning CRAQ benchmark analysis ......\n";
 print "CMD: $bin_path/../src/runAQI_SMS.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -C LRout/LR_putative.ER.HR -D LRout/LR_sort.depth  -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break  \n";
@@ -181,14 +184,14 @@ if (  -e $short_input1 or -e $short_input2  ){
  if( ! -e $long_input){
 print "Running NGS short-reads CRAQ analysis ......\n";
 if(@num==2){
-print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -2 $short_input2 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread \n";
+print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -2 $short_input2 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread \n";
 
-system("bash $bin_path/../src/runSR.sh -g $genome_seq -z $genome_size  -1 $short_input1 -2 $short_input2 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
+system("bash $bin_path/../src/runSR.sh -g $genome_seq -z $genome_size  -1 $short_input1 -2 $short_input2 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
 
 if(@num==1){
-print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread\n";
+print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread\n";
 
-system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
+system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
 print "CMD: $bin_path/../src/runAQI_NGS.sh -g  $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel  \n";
@@ -230,5 +233,6 @@ __END__
 	--regional_window|-rw		Regional quality score. Default: 1000000
 	--break|-b			Break chimera fragment. Default: F
 	--map|-x			Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
+	--mapq|-q			Minimum reads mapping quality. Default: 20
         --thread|-t			The number of thread used in alignment. Default: 5
 
