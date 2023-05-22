@@ -113,6 +113,9 @@ echo -e "[M::worker_pipeline:: Create regional metrics]"
 perl $src/regional_AQI.pl $ref_fa_size $regional_window $regional_window runAQI_out/tmp_merged.loc.str.ER >runAQI_out/out_regional.Report
 perl -alne  'print "$F[0]\t$F[1]\t$F[2]\t$F[-1]"' runAQI_out/out_regional.Report |grep -v 'AQI'  >runAQI_out/out_regional.AQI.bdg
 
+echo -e "[M::worker_pipeline:: Plot regional metrics]"
+python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_out/tmp_merged.loc.str.ER --genome_score runAQI_out/out_regional.AQI.bdg --output runAQI_out/out_circos.pdf
+
 echo -e "[M::worker_pipeline:: Create final report]"
 perl $src/final_short_report_minlen.pl runAQI_out/sequence.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
 perl $src/final_short_report_minlen.pl runAQI_out/sequence.HR.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.HR.Report.tmp"
