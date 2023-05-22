@@ -113,7 +113,7 @@ out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
 
 Load output to IGV: 
-![image]([https://github.com/JiaoLaboratory/CRAQ/blob/main/Example/Example.png])
+![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Example/Example.png)
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
 Load CRAQ output to IGV:
