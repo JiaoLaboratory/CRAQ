@@ -7,6 +7,7 @@ minclip_num=2
 minbkrate=0.4
 LRavg_depth=100
 mapquality=20
+next_clip_dis=50000
 x="map-pb";
 t=5
 
@@ -22,9 +23,9 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -q mapq -f minbkrate\nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f minbkrate -a 100"
+Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -q mapq -f minbkrate\nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f minbkrate -d 50000 -a 100"
 
-while getopts "a:g:x:z:1:m:f:q:t:" opt
+while getopts "a:g:x:z:1:d:m:f:q:t:" opt
 do
     case $opt in
         g)      ref_fa=$OPTARG ;;
@@ -32,6 +33,7 @@ do
         1)      inquery=$OPTARG;;
 	m)	minclip_num=$OPTARG;;
 	a)	LRavg_depth=$OPTARG;;
+	d)	next_clip_dis=$OPTARG;;
 	f)	minbkrate=$OPTARG;;
 	q)	mapquality=$OPTARG;;
 	t)      t=$OPTARG;;
@@ -143,7 +145,7 @@ echo -e "[M::worker_pipeline:: Collect potential LER]"
 	perl -alne  'print if($F[3]>='$minclip_num')' LRout/$LRname"_clipped.cov" >LRout/$LRname"_clipped.cov.tmp"
 	perl   $src/synthesize_LRbkdep_and_alldep_theory1.pl LRout/$LRname"_clipped.cov.tmp"  LRout/$LRname"_sort.depth"  >LRout/$LRname"_clip.coverRate"
 	perl -alne  'print if($F[4]< 2*'$LRavg_depth' && $F[3]>='$minclip_num' && $F[3]/$F[4]>'$minbkrate')' LRout/$LRname"_clip.coverRate" >LRout/$LRname"_clip.coverRate.filter"
-   	perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"   LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.softclip.tmp"
+   	perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"   LRout/$LRname"_clip.coverRate.filter"  $next_clip_dis >LRout/$LRname"_clip.coverRate.softclip.tmp"
 	perl -alne  'print if($F[5]<0.1)' LRout/$LRname"_clip.coverRate.softclip.tmp" |cut  -f -5 >LRout/$LRname"_putative.ER.HR"
 
 perl $src/get_nonmap_region.pl LRout/Nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >LRout/Nonmap.bed
