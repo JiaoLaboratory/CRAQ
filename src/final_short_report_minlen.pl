@@ -72,11 +72,16 @@ my $avgnumErr=$numErr/$effsize*1000000;
 my $avgnum_mis_junct=$num_mis_junct/$effsize*1000000;
 my $avgweight=($numErr+$num_mis_junct*10)/$effsize*1000000;
 
+my $avg_ctg_nor_ser_score=exp(-$avgnumErr/10)*100;
+my $avg_ctg_nor_ler_score=exp(-10*$avgnum_mis_junct/10)*100;
+
+
+
 #my $contigy_score=  exp(-$avgGap/10) *100;
 my $corness_score=  exp(-$avgweight/30) *100;
 $hash{$chr}={
 	#line=>"$numGap\t$numErr\t$avgGap\t$avgErr\t$contigy_score\t$corness_score",
-	line=>"$effsize_rate\t$avgnumErr\t$avgnum_mis_junct\t$avgweight\t$corness_score",
+	line=>"$effsize_rate\t$avgnumErr\($avg_ctg_nor_ser_score\)\t$avgnum_mis_junct\($avg_ctg_nor_ler_score\)\t$avgweight\t$corness_score",
 	score=>$corness_score  }
 }
 
