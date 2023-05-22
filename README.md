@@ -103,7 +103,7 @@ If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(lo
 ```
 $ bash src/runAQI.sh -g  Genome.fa -z  Genome.fa.size -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
-Main output(runAQI_out):  
+### Main output (runAQI_out):  
 
 locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
