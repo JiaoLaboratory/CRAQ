@@ -1,5 +1,5 @@
 #use Data::Dumper;
-my ($LR_clip_nameid,$mergeLER)=($ARGV[0],$ARGV[1]);
+my ($LR_clip_nameid,$mergeLER,$next_clip_dis)=($ARGV[0],$ARGV[1],$ARGV[2]);
 open IN1,$LR_clip_nameid;
 
 while (<IN1>){chomp;
@@ -14,6 +14,7 @@ my ($chr,$loc,$stran)=(split/\t/)[0,1,2];
 if($stran eq "*"){print "$_\t0\n"};
 #############
 my $dis=50000;
+my $dis=$next_clip_dis;
 my $rate=1;
 if($stran eq "+"){
 my @LER_readlist=split/\s+/,$postive{$chr}{$loc};
