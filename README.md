@@ -100,7 +100,7 @@ If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(lo
 
 3. Benchmark genomic quality using AQI.       
 ```
-$ bash src/runAQI.sh -g  Genome.fasta -z  Genome.fasta.size -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
+$ bash src/runAQI.sh -g  Genome.fasta -z  Genome.fasta.size -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
 Main output(runAQI_out):  
 
