@@ -59,22 +59,17 @@ pod2usage(-msg=>$msg,-exitval=>1,-verbose=>99, -sections=>'NAME|SYNOPSIS|AUTHOR|
 
 if (-d "LRout"){ die "Error::cannot create directory, 'LRout' already exists, Exit !";}
 if (-d "SRout"){die "Error::cannot create directory, 'SRout' already exists, Exit !";}
-system("perl $bin_path/../src/fetch_size.pl $genome_seq >seq.size");
-my $genome_size="seq.size";
+
+if ( ! -e $genome_seq ){print $usage;
+                die "\nError: -g  genome_seq file(.fa) :$genome_seq doesn't exist, please check!\n\n" ;   }
+if ($genome_seq =~/\.tar$|\.gz$|\.zip$|\.bz2$|\.xz$/  ){
+                die "\nError: -g  genome_seq file(.fa) :$genome_seq file require uncompressed, please check!\n\n" ; }
 
 
 my @num=(split/,/,$short_input);
 my ($short_input1,$short_input2)=(split/,/,$short_input)[0,1];
 if ( ! -e $long_input && ! -e $short_input1 && ! -e $short_input2 ){
 		die "\nError: -lr or -sr, at least one is needed, please check !\n\n" }
-
-         if ( ! -e $genome_seq ){print $usage;
-                die "\nError: -g  genome_seq file(.fa) :$genome_seq doesn't exist, please check!\n\n" ;   }
-         if ($genome_seq =~/\.tar$|\.gz$|\.zip$|\.bz2$|\.xz$/  ){
-		die "\nError: -g  genome_seq file(.fa) :$genome_seq file require uncompressed, please check!\n\n" ; }
-	 
-         if ( ! -e $genome_size or -z $genome_size ){print $usage;
-                die "\nError: genome sequence size file : $genome_size doesn't exist, please check!\n\n";       }
 
 if (  -e $long_input  ){
 	if ($long_input =~/fa$|fq$|fasta$|fastq$|bam$/i or $long_input =~/fa\.gz$|fq\.gz$|fasta\.gz$|fastq\.gz$/i ){
@@ -128,7 +123,7 @@ if (  -e $short_input1 or -e $short_input2  ){
 
 print "Running CRAQ analysis .........\nPARAMETERS:\n";
 print "Genome sequence(-g): $genome_seq\n";
-print "Genome sequence size: $genome_size\n";
+#print "Genome sequence size: $genome_size\n";
 print "SMS input(-lr): $long_input\n";
 print "NGS input(-sr): $short_input1  $short_input2\n";
 print "Minimum NGS clipped-reads (-sn): $min_ngs_clip_num\n";
@@ -145,6 +140,9 @@ print "Mapping SMS reads use (-x): $map\n";
 print "Alignment thread(-t): $thread\n";
 
 print "-------------------------Start Running------------------------\n";
+system("perl $bin_path/../src/fetch_size.pl $genome_seq >seq.size");
+my $genome_size="seq.size";
+
 if (  -e $long_input ){
 	if ( -e $short_input1 or -e $short_input2){
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
