@@ -53,7 +53,7 @@ $ seqkit split SMS.fa  -p 4 -f
 ```
 Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_004.fa, then performing the following running will reduce the time for sequence alignment
 ```
-$ craq  -g  Genome.fa -z Genome.size -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
+$ craq  -g  Genome.fa -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
 ```
 In addition, if only one of SMS or NGS alignment (.bam) file is available, the following operations are also optional:
 ```
