@@ -17,7 +17,7 @@ CRAQ should install on most standard flavors of Linux (OSX and Windows are curre
 Both SAMtools and Minimap2 are straightforward to install following the instructions on its website.
 Place the SAMtools and minimap2 executable in your path.
 4. pycircos (python 3.7later) (https://github.com/ponnhide/pyCircos) 
-Only required for plotting (pip install python-circos)
+Only required for plotting (pip install python-circos)  
 ### Install
 
 ```
@@ -111,6 +111,7 @@ strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakag
 strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
+out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
 
 Load output to IGV: 
