@@ -32,7 +32,7 @@ $ cd CRAQ/Example && bash run_example.sh
 #### "craq" is implemented for assembly validation
 CRAQ intergrates the reads-mapping status (including reads coverage, clipping signals) of NGS short-reads and SMS long-reads to identify types of assembly errors and heterozygous variants. The process is simple to run, requiring as input an assembly in FASTA(.fa) format, a sequence size file(.size) and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data. Alternatively, the user can map the reads to the assembly in advance and provide two BAM files as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were selected for genomic short illumina and long HiFi mapping, respectively.
 
-#### Usage
+### Usage
 When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
 $ craq  -g  Genome.fa -z Genome.fa.size -lr SMS_sort.bam -sr NGS_sort.bam   [-lr or -sr at least one is needed]
