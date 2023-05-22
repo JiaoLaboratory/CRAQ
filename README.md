@@ -16,7 +16,7 @@ CRAQ should install on most standard flavors of Linux (OSX and Windows are curre
 3. Perl (version >= 5)](https://www.perl.org/)
 Both SAMtools and Minimap2 are straightforward to install following the instructions on its website.
 Place the SAMtools and minimap2 executable in your path.
-4. pycircos (python 3.7later)(https://github.com/ponnhide/pyCircos) 
+4. pycircos (python 3.7later) (https://github.com/ponnhide/pyCircos) 
 Only required for plotting (pip install python-circos)
 ### Install
 
