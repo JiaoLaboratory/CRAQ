@@ -31,7 +31,7 @@ my $f1_score=2*$avg_ser_score*$avg_ler_score/($avg_ser_score+$avg_ler_score+0.1)
 my  $hr_hash_value=$hr_hash{"$chr"};
 my ($avg_shr,$avg_lhr)=(split/\t/,$hr_hash_value);
 
-print "$chr\t$cov_rate\t$avg_shr\t$avg_lhr\t$avg_ser\t$avg_ler\t$score\t$wei\t$f1_score\n";
+print "$chr\t$cov_rate\t$avg_shr\t$avg_lhr\t$avg_ser\t$avg_ler\t$wei\t$score\t$f1_score\n";
 
 }
 
