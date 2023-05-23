@@ -164,6 +164,9 @@ if (($minclip_num == 0)); then
      rm SRout/$SRname"_putative.ER.0.tmp" SRout/$SRname"_putative.ER.bk.tmp"
 
 fi
+     perl $src/get_nonmap_region.pl SRout/Nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >SRout/Nonmap.bed
+     perl $src/search_ambiguous_region.pl SRout/$SRname"_putative.ER.HR" SRout/Nonmap.bed >SRout/uncertain_region.bed
 
+     rm SRout/Nonmap*
 #echo -e "\n##########################################################################################\n"
 echo -e "SR clipping analysis completed. Check current directory SRout for final results!"

@@ -35,16 +35,16 @@ my $chr_un=0;
 
 open IN3,$final_report;
 print "Short Report:\n";
-print "#Chr\tCovered.Rate\tUncertain.Rate\tAvg.SHR\tAvg.LHR\tAvg.SER(S-AQI)\tAvg.LER(L-AQI)\tWeight\tAQI\n";
+print "#Chr\tCovered.Rate\tUncertain.Rate\tAvg.SHR\tAvg.LHR\tAvg.SER(S-AQI)\tAvg.LER(L-AQI)\n";
 while (<IN3>){
 chomp;
 next if(/Short Report:/);
 next if(/#Chr/);
 my ($chr,$covered,$shr,$lhr,$ser,$ler,$wei,$aqi)=(split/\s+/)[0,1,2,3,4,5,6,7];
 if(/^Genome/){ 
- print "Genome\t$covered\t$total_un_ratio\t$shr\t$lhr\t$ser\t$ler\t$wei\t$aqi\n" ;}else {
+ print "Genome\t$covered\t$total_un_ratio\t$shr\t$lhr\t$ser\t$ler\n" ;}else {
   my $per_chr_un_ratio=$chr_un_ratio{$chr};
- print "$chr\t$covered\t$per_chr_un_ratio\t$shr\t$lhr\t$ser\t$ler\t$wei\t$aqi\n";}
+ print "$chr\t$covered\t$per_chr_un_ratio\t$shr\t$lhr\t$ser\t$ler\n";}
 
 }
 

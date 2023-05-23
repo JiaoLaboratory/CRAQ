@@ -154,10 +154,12 @@ python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_o
 echo -e "[M::worker_pipeline:: Create final report]"
 perl $src/final_short_report_minlen.pl runAQI_out/sequence.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
 perl $src/final_short_report_minlen.pl runAQI_out/sequence.HR.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.HR.Report.tmp"
-perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report"
+perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report.tmp"
+
+cp LRout/uncertain_region.bed runAQI_out/
+perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/uncertain_region.bed runAQI_out/$name"_final.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
-mv LRout/uncertain_region.bed runAQI_out/
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LER.out >runAQI_out/strER_out/out_final.LER.bed
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LHR.out >runAQI_out/strER_out/out_final.LHR.bed
 

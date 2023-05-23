@@ -140,7 +140,7 @@ fi
 echo -e "[M::worker_pipeline:: Get SMS mapping coverage]"
 	samtools depth -a  LRout/$LRname"_sort.bam"  > LRout/$LRname"_sort.depth" 
 echo -e "[M::worker_pipeline:: Compute effective coverage]"
-perl $src/SReffect_size.pl LRout/$LRname"_sort.depth" >LRout/$LRname"_eff.size"
+perl $src/LReffect_size.pl LRout/$LRname"_sort.depth" >LRout/$LRname"_eff.size"
 
 echo -e "[M::worker_pipeline:: Extract SMS clipping signal]"
 samtools view  LRout/$LRname"_sort.bam"  -@ $t |   perl   $src/caculate_breakpoint_depth.pl    -  > LRout/$LRname"_clipped.cov"
@@ -165,7 +165,7 @@ cat LRout/$LRname"_putative.ER" LRout/$LRname"_putative.HR" >LRout/$LRname"_puta
 perl $src/get_nonmap_region.pl LRout/Nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >LRout/Nonmap.bed
 perl $src/search_ambiguous_region.pl LRout/$LRname"_clip.coverRate.filter" LRout/Nonmap.bed >LRout/uncertain_region.bed
 
-rm LRout/$LRname"_clipped.cov.tmp"  LRout/Nonmap*
+rm LRout/*tmp   LRout/Nonmap* LRout/LR_clip.coverRate.filter.*R
 
 #echo -e "\n##########################################################################################\n"
 echo -e "LR clipping analysis completed. Check current directory LRout for final results!\n"
