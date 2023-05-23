@@ -1,12 +1,15 @@
 
 src=`cd $(dirname $0); pwd -P`
 SRname="SR"
-cutoff=0.25
+
+she_cutoff_left=0.25
+she_cutoff_right=0.6
+srbk_cutoff=0.75
+
 SRavg_depth=100
 mapquality=20
 t=5
 minclip_num=2
-#srbk_cutoff=0.75
 
 pipline=$(basename $0)
 
@@ -21,9 +24,9 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 sr_sorted.bam \n or \t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 fq1.gz -2 fq2.gz  -t 10 \n\t[default: -q 20 -f 0.75 -m 2 -a 100 -t 5]"
+Usage="\nUsage:\n\t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 sr_sorted.bam \n or \t$pipline -g  Genome.fasta  -z Genome.fasta.size  -1 fq1.gz -2 fq2.gz -f she_cutoff_left -h she_cutoff_right -r srbk_cutoff \n\t[default: -q 20 -f 0.4 -h 0.6 -r 0.75 -m 2 -a 100 -t 5]"
 
-while getopts "g:z:1:2:q:f:m:a:t:" opt
+while getopts "g:z:1:2:q:f:h:r:m:a:t:" opt
 do
     case $opt in
         g)	ref_fa=$OPTARG ;;
@@ -32,7 +35,9 @@ do
         2)	query_2=$OPTARG ;;
 	q)	mapquality=$OPTARG ;;
 	m)	minclip_num=$OPTARG ;;
-	f)	cutoff=$OPTARG ;;
+	f)	she_cutoff_left=$OPTARG ;;
+	h)	she_cutoff_right=$OPTARG ;;
+	r)	srbk_cutoff=$OPTARG ;;
 	a)	SRavg_depth=$OPTARG ;;
         t)	t=$OPTARG ;;
         ?)
@@ -63,8 +68,8 @@ if [ `echo "$t <= 0"|bc` -eq 1 ] ; then
         exit 1
 fi
 
-if [ `echo "$cutoff < 0"|bc` -eq 1 ] ; then
-        echo -e "\n\tcutoff ERROR: $cutoff  Exit !"
+if [ `echo "$she_cutoff_left < 0"|bc` -eq 1 ] ; then
+        echo -e "\n\tshe_cutoff_left ERROR: $she_cutoff_left  Exit !"
         exit 1
 fi
 
@@ -134,8 +139,13 @@ if (($minclip_num >=1)); then
         samtools view -@ $t SRout/$SRname"_sort.bam" |   perl   $src/caculate_breakpoint_depth.pl    -  > SRout/$SRname"_clipped.cov"
         perl -alne  'print if($F[3]>='$minclip_num')' SRout/$SRname"_clipped.cov" >SRout/$SRname"_clipped.cov.tmp"
 	perl   $src/synthesize_SRbkdep_and_alldep.pl  SRout/$SRname"_clipped.cov.tmp" SRout/$SRname"_sort.depth" >SRout/$SRname"_clip.coverRate" 
-        perl -alne  'print if($F[3]>='$minclip_num' && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$cutoff')' SRout/$SRname"_clip.coverRate" >SRout/$SRname"_putative.ER.HR"
-	rm SRout/$SRname"_clipped.cov.tmp"
+        perl -alne  'print if($F[3]>='$minclip_num' && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$she_cutoff_left')' SRout/$SRname"_clip.coverRate" > SRout/$SRname"_clip.coverRate.tmp"
+#get putative.SHR
+	perl -alne  'print if( $F[3]/$F[4] <= '$she_cutoff_right' )' SRout/$SRname"_clip.coverRate.tmp" >SRout/$SRname"_putative.HR"
+#get putative.SER
+	perl -alne  'print if( $F[3]/$F[4] >= '$srbk_cutoff' )' SRout/$SRname"_clip.coverRate.tmp" >SRout/$SRname"_putative.ER"
+	cat SRout/$SRname"_putative.HR" SRout/$SRname"_putative.ER" >SRout/$SRname"_putative.ER.HR"
+	rm SRout/$SRname"_clipped.cov.tmp" SRout/$SRname"_clip.coverRate.tmp"
 
 fi
 
@@ -145,7 +155,7 @@ if (($minclip_num == 0)); then
      samtools view -@ $t SRout/$SRname"_sort.bam" |   perl   $src/caculate_breakpoint_depth.pl    -  > SRout/$SRname"_clipped.cov"
      perl -alne  'print if($F[3]>=2)' SRout/$SRname"_clipped.cov" >SRout/$SRname"_clipped.cov.tmp"
      perl   $src/synthesize_SRbkdep_and_alldep.pl  SRout/$SRname"_clipped.cov.tmp" SRout/$SRname"_sort.depth" >SRout/$SRname"_clip.coverRate"
-     perl -alne  'print if($F[3]>=2 && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$cutoff' )' SRout/$SRname"_clip.coverRate" >SRout/$SRname"_putative.ER.bk.tmp"
+     perl -alne  'print if($F[3]>=2 && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$she_cutoff_left' )' SRout/$SRname"_clip.coverRate" >SRout/$SRname"_putative.ER.bk.tmp"
 #     rm SRout/$SRname"_clipped.cov.tmp"
 #######finish extract clipped reads
 

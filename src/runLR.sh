@@ -4,7 +4,9 @@ src=`cd $(dirname $0); pwd -P`
 pipline=$(basename $0)
 LRname="LR"
 minclip_num=2
-minbkrate=0.4
+lhe_cutoff_left=0.4
+lhe_cutoff_right=0.6
+lrbk_cutoff=0.65
 LRavg_depth=100
 mapquality=20
 next_clip_dis=50000
@@ -23,9 +25,9 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -q mapq -f minbkrate\nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f minbkrate -d 50000 -a 100"
+Usage="\nUsage:\n\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1  SMS_sorted.bam -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff \nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff"
 
-while getopts "a:g:x:z:1:d:m:f:q:t:" opt
+while getopts "a:g:x:z:1:d:m:q:f:h:r:t:" opt
 do
     case $opt in
         g)      ref_fa=$OPTARG ;;
@@ -34,7 +36,9 @@ do
 	m)	minclip_num=$OPTARG;;
 	a)	LRavg_depth=$OPTARG;;
 	d)	next_clip_dis=$OPTARG;;
-	f)	minbkrate=$OPTARG;;
+	f)	lhe_cutoff_left=$OPTARG;;
+	h)	lhe_cutoff_right=$OPTARG;;
+	r)	lrbk_cutoff=$OPTARG;;	
 	q)	mapquality=$OPTARG;;
 	t)      t=$OPTARG;;
 	x)	x=$OPTARG;;
@@ -61,8 +65,8 @@ if [ `echo "$minclip_num < 1"|bc` -eq 1 ] ; then
         exit 1
 fi
 
-if [ `echo "$minbkrate < 0"|bc` -eq 1 ] ; then
-        echo -e "\n\t min_bkrate ERROR: $minbkrate  Exit !"
+if [ `echo "$lhe_cutoff_left < 0"|bc` -eq 1 ] ; then
+        echo -e "\n\t min_bkrate ERROR: $lhe_cutoff_left  Exit !"
         exit 1
 fi
 
@@ -144,9 +148,19 @@ samtools view  LRout/$LRname"_sort.bam"  -@ $t |   perl   $src/caculate_breakpoi
 echo -e "[M::worker_pipeline:: Collect potential LER]"
 	perl -alne  'print if($F[3]>='$minclip_num')' LRout/$LRname"_clipped.cov" >LRout/$LRname"_clipped.cov.tmp"
 	perl   $src/synthesize_LRbkdep_and_alldep_theory1.pl LRout/$LRname"_clipped.cov.tmp"  LRout/$LRname"_sort.depth"  >LRout/$LRname"_clip.coverRate"
-	perl -alne  'print if($F[4]< 2*'$LRavg_depth' && $F[3]>='$minclip_num' && $F[3]/$F[4]>'$minbkrate')' LRout/$LRname"_clip.coverRate" >LRout/$LRname"_clip.coverRate.filter"
-   	perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"   LRout/$LRname"_clip.coverRate.filter"  $next_clip_dis >LRout/$LRname"_clip.coverRate.softclip.tmp"
-	perl -alne  'print if($F[5]<0.1)' LRout/$LRname"_clip.coverRate.softclip.tmp" |cut  -f -5 >LRout/$LRname"_putative.ER.HR"
+	perl -alne  'print if($F[4]< 2*'$LRavg_depth' && $F[3]>='$minclip_num' && $F[3]/$F[4]>'$lhe_cutoff_left')' LRout/$LRname"_clip.coverRate" >LRout/$LRname"_clip.coverRate.filter"
+
+#get putative.HR
+	perl -alne 'print if($F[3]/$F[4]<='$lhe_cutoff_right'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.HR"
+        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.HR" $next_clip_dis >LRout/$LRname"_putative.HR.tmp"
+        perl -alne  'print if($F[5]>0.5)' LRout/$LRname"_putative.HR.tmp" |cut  -f -5 >LRout/$LRname"_putative.HR"
+
+#get putative.ER
+        perl -alne 'print if($F[3]/$F[4]>='$lrbk_cutoff'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.ER"
+        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.ER" $next_clip_dis >LRout/$LRname"_putative.ER.tmp"
+        perl -alne  'print if($F[5]<0.1)' LRout/$LRname"_putative.ER.tmp" |cut  -f -5 > LRout/$LRname"_putative.ER"
+
+cat LRout/$LRname"_putative.ER" LRout/$LRname"_putative.HR" >LRout/$LRname"_putative.ER.HR"
 
 perl $src/get_nonmap_region.pl LRout/Nonmap.loc |perl -alne  'print if(($F[2]-$F[1])>10000)' - >LRout/Nonmap.bed
 perl $src/search_ambiguous_region.pl LRout/$LRname"_clip.coverRate.filter" LRout/Nonmap.bed >LRout/uncertain_region.bed
