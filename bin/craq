@@ -34,7 +34,7 @@ my $next_clip_dis=50000;
 
 
 my $msg            = "\nCRAQ Version: 1.0.9-alpha \n\nPlease provide appropriate parameters!\n\nUsage:\t $0  -g  genome_seq -lr lr_sort.bam -sr  sr_sort.bam\n or\t $0  -g  genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz \n";
-my $usage="\nUsage:  perl $0 -g genome_se9 -lr lr_sort.bam -sr sr_sort.bam\nor\tperl $0 -g genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz\n\n";
+my $usage="\nUsage:  perl $0 -g genome_seq -lr lr_sort.bam -sr sr_sort.bam\nor\tperl $0 -g genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz\n\n";
 
 GetOptions(             'h|help'                      => \$help,
                         'g|genome=s'                  => \$genome_seq,
