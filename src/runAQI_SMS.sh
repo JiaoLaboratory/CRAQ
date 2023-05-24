@@ -140,8 +140,8 @@ cat  runAQI_out/strER_out/$name"_final.LER.out" runAQI_out/locER_out/$name"_fina
 cat  runAQI_out/strER_out/$name"_final.LHR.out"  >runAQI_out/tmp_merged.loc.str.HR
 ERname="ER"
 HRname="HR"
-perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.ER $norm_window $norm_window $Eff_size $ERname  >runAQI_out/sequence.ER.stat
-perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.HR $norm_window $norm_window $Eff_size $HRname  >runAQI_out/sequence.HR.stat
+perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.ER $norm_window $norm_window $Eff_size $ERname  >runAQI_out/seq.ER.stat
+perl $src/get_ER_junctionstat_window.pl $ref_fa_size  runAQI_out/tmp_merged.loc.str.HR $norm_window $norm_window $Eff_size $HRname  >runAQI_out/seq.HR.stat
 
 
 echo -e "[M::worker_pipeline:: Create CRAQ metrics]"
@@ -152,8 +152,8 @@ echo -e "[M::worker_pipeline:: Plot regional metrics]"
 python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_out/tmp_merged.loc.str.ER --genome_score runAQI_out/out_regional.AQI.bdg --output runAQI_out/out_circos.pdf
 
 echo -e "[M::worker_pipeline:: Create final report]"
-perl $src/final_short_report_minlen.pl runAQI_out/sequence.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
-perl $src/final_short_report_minlen.pl runAQI_out/sequence.HR.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.HR.Report.tmp"
+perl $src/final_short_report_minlen.pl runAQI_out/seq.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
+perl $src/final_short_report_minlen.pl runAQI_out/seq.HR.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.HR.Report.tmp"
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report.tmp"
 
 cp LRout/uncertain_region.bed runAQI_out/
@@ -164,5 +164,5 @@ perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LHR.out >runAQI_out/strER_out/out_final.LHR.bed
 
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp runAQI_out/locER_out runAQI_out/strER_out/*_putative*
-rm  runAQI_out/tmp_merged* runAQI_out/seq*stat
+rm  runAQI_out/tmp_merged*
 echo -e "CRAQ analysis is finished. Check current directory runAQI_out for final results!\n"
