@@ -1,6 +1,6 @@
 src=`cd $(dirname $0); pwd -P`
 pipline=$(basename $0)
-Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fa -z  Genome.fa -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
+Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fa -z  Genome.fa.size -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
 
 name="out"
 skewned_rate=0.1
@@ -22,8 +22,9 @@ lhe_cutoff_right=0.6
 norm_window=50000
 regional_window=1000000
 merge_strER_window=10000
+plot=F
 
-while getopts "s:g:z:e:c:d:C:D:f:e:n:w:m:M:j:b:r:p:q:R:P:Q:o" opt
+while getopts "s:g:z:e:c:d:C:D:f:e:n:w:m:M:j:b:r:p:q:R:P:Q:y:o" opt
 do
     case $opt in
         g)      ref_fa=$OPTARG ;;
@@ -47,6 +48,7 @@ do
 	R)	lrbk_cutoff=$OPTARG;;
 	P)	lhe_cutoff_left=$OPTARG;;
 	Q)	lhe_cutoff_right=$OPTARG;;
+	y)	plot=$OPTARG;;
 	o)      name=$OPTARG;;
         ?)
         echo ":| WARNING: Unknown option. Ignoring: Exiting!"
@@ -186,8 +188,10 @@ echo -e "[M::worker_pipeline:: Create regional metrics]"
 perl $src/regional_AQI.pl $ref_fa_size $regional_window $regional_window runAQI_out/tmp_merged.loc.str.ER >runAQI_out/out_regional.Report
 perl -alne  'print "$F[0]\t$F[1]\t$F[2]\t$F[-1]"' runAQI_out/out_regional.Report |grep -v 'AQI'  >runAQI_out/out_regional.AQI.bdg
 
+if [ "$plot" == "T" ] ; then
 echo -e "[M::worker_pipeline:: Plot CRAQ metrics]"
 python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_out/tmp_merged.loc.str.ER --genome_score runAQI_out/out_regional.AQI.bdg --output runAQI_out/out_circos.pdf
+fi
 
 echo -e "[M::worker_pipeline:: Create final report]"
 perl $src/final_short_report_minlen.pl runAQI_out/seq.ER.stat  0.85 $report_minctgsize  >runAQI_out/$name"_final.ER.Report.tmp"
