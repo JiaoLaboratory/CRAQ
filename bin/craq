@@ -29,7 +29,7 @@ my $sms_coverage=100;
 my $ngs_coverage=100;
 my $map="map-hifi";
 my $mapq=20;
-my $thread=5;
+my $thread=10;
 my $next_clip_dis=50000;
 my $plot="F";
 
@@ -238,6 +238,6 @@ __END__
 	--break|-b			Break chimera fragment. Default: F
 	--map|-x			Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
 	--mapq|-q			Minimum reads mapping quality. Default: 20
-	--plot|-pl			Plotint CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
-        --thread|-t			The number of thread used in alignment. Default: 5
+	--plot|-pl			Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
+        --thread|-t			The number of thread used in alignment. Default: 10
 
