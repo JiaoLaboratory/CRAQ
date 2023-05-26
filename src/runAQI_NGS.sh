@@ -15,7 +15,7 @@ norm_window=50000
 regional_window=1000000
 plot=F
 
-while getopts "s:g:z:e:c:d:e:n:w:m:j:r:p:q:y:o" opt
+while getopts "s:g:z:e:c:d:e:n:w:m:j:r:p:q:y:x:o" opt
 do
     case $opt in
         g)      ref_fa=$OPTARG ;;
@@ -32,6 +32,7 @@ do
 	p)	she_cutoff_left=$OPTARG;;
 	q)	she_cutoff_right=$OPTARG;;
 	y)	plot=$OPTARG;;
+	x)	your_chrid=$OPTARG;;
 	o)      name=$OPTARG;;
         ?)
         echo ":| WARNING: Unknown option. Ignoring: Exiting!"
@@ -117,7 +118,7 @@ perl -alne  'print "$F[0]\t$F[1]\t$F[2]\t$F[-1]"' runAQI_out/out_regional.Report
 
 if [ "$plot" == "T" ] ; then
 echo -e "[M::worker_pipeline:: Plot CRAQ metrics]"
-python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_out/tmp_merged.loc.str.ER --genome_score runAQI_out/out_regional.AQI.bdg --output runAQI_out/out_circos.pdf
+python $src/CRAQcircos.py --genome_size $ref_fa_size --genome_error_loc runAQI_out/tmp_merged.loc.str.ER --genome_score runAQI_out/out_regional.AQI.bdg --scaffolds_ids $your_chrid --output runAQI_out/out_circos.pdf
 fi
 
 echo -e "[M::worker_pipeline:: Create final report]"
