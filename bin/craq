@@ -22,7 +22,7 @@ my $gapmodel="F";
 my $mincontigsize=1000000; 
 my $break="F";
 my $norm_window=50000;
-my $regional_window=1000000; 
+my $regional_window=50000; 
 my $model;
 my $min_gap_size=10;
 my $sms_coverage=100;
@@ -32,7 +32,7 @@ my $mapq=20;
 my $thread=10;
 my $next_clip_dis=50000;
 my $plot="F";
-
+my $your_chrid;
 my $msg            = "\nCRAQ Version: 1.0.9-alpha \n\nPlease provide appropriate parameters!\n\nUsage:\t $0  -g  genome_seq -lr lr_sort.bam -sr  sr_sort.bam\n or\t $0  -g  genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz \n";
 my $usage="\nUsage:  perl $0 -g genome_se9 -lr lr_sort.bam -sr sr_sort.bam\nor\tperl $0 -g genome_seq -lr lr.fq.gz -sr sr_pair1_fq.gz,sr_pair2_fq.gz\n\n";
 
@@ -56,6 +56,7 @@ GetOptions(             'h|help'                      => \$help,
 			'gm|gapmodel=i'		=>\$gapmodel,
 			'b|break=s'		=>\$break,
 			'pl|plot=s'		=>\$plot,
+			'ids|plot_ids=s'             =>\$your_chrid,
 			'x|map=s'             =>\$map,
 			'q|mapq:i'		=>\$mapq,
                         't|thread:i'                      => \$thread,
@@ -65,6 +66,7 @@ pod2usage(-msg=>$msg,-exitval=>1,-verbose=>99, -sections=>'NAME|SYNOPSIS|AUTHOR|
 if (-d "LRout"){ die "Error::cannot create directory, 'LRout' already exists, Exit !";}
 if (-d "SRout"){die "Error::cannot create directory, 'SRout' already exists, Exit !";}
 
+if ( ! -e $your_chrid ){$your_chrid="seq.size"; print "$your_chrid doesn't exist, use all ids for plotting\n\n";  }
 if ( ! -e $genome_seq ){print $usage;
                 die "\nError: -g  genome_seq file(.fa) :$genome_seq doesn't exist, please check!\n\n" ;   }
 if ($genome_seq =~/\.tar$|\.gz$|\.zip$|\.bz2$|\.xz$/  ){
@@ -149,6 +151,7 @@ print "Alignment thread(-t): $thread\n";
 print "-------------------------Start Running------------------------\n";
 system("perl $bin_path/../src/fetch_size.pl $genome_seq >seq.size");
 my $genome_size="seq.size";
+if ( ! -e $your_chrid ){$your_chrid="seq.size"; print "$your_chrid doesn't exist, use all ids for plotting\n\n";  }
 
 if (  -e $long_input ){
 	if ( -e $short_input1 or -e $short_input2){
@@ -168,9 +171,9 @@ print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short
 system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break -y $plot \n";
+print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break -y $plot -x $your_chrid \n";
 
-system("bash $bin_path/../src/runAQI.sh -g $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break -y $plot ");
+system("bash $bin_path/../src/runAQI.sh -g $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break -y $plot -x $your_chrid ");
 }}
 
 if (  -e $long_input && ! -e $short_input1 && ! -e $short_input2 ){
@@ -179,9 +182,9 @@ print "CMD: $bin_path/../src/runLR.sh -g $genome_seq -x $map  -z $genome_size -1
 system("bash $bin_path/../src/runLR.sh -g $genome_seq -x $map -z $genome_size  -1 $long_input -q $mapq -m $min_sms_clip_num -f $he_cutoff_left  -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d $next_clip_dis -t $thread " );
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI_SMS.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -C LRout/LR_putative.ER.HR -D LRout/LR_sort.depth  -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break -y $plot \n";
+print "CMD: $bin_path/../src/runAQI_SMS.sh -g  $genome_seq  -z $genome_size   -e LRout/LR_eff.size  -C LRout/LR_putative.ER.HR -D LRout/LR_sort.depth  -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break -y $plot -x $your_chrid \n";
 
-system("bash $bin_path/../src/runAQI_SMS.sh -g $genome_seq  -z $genome_size   -e LRout/LR_eff.size   -C LRout/LR_putative.ER.HR -D LRout/LR_sort.depth -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break -y $plot ");
+system("bash $bin_path/../src/runAQI_SMS.sh -g $genome_seq  -z $genome_size   -e LRout/LR_eff.size   -C LRout/LR_putative.ER.HR -D LRout/LR_sort.depth -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break -y $plot -x $your_chrid ");
 }
 
 if (  -e $short_input1 or -e $short_input2  ){
@@ -198,9 +201,9 @@ print "CMD: $bin_path/../src/runSR.sh -g $genome_seq  -z $genome_size -1  $short
 system("bash $bin_path/../src/runSR.sh -g  $genome_seq  -z $genome_size  -1  $short_input1 -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI_NGS.sh -g  $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -y $plot  \n";
+print "CMD: $bin_path/../src/runAQI_NGS.sh -g  $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -y $plot -x $your_chrid  \n";
 
-system("bash $bin_path/../src/runAQI_NGS.sh -g $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right   -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -y $plot ");
+system("bash $bin_path/../src/runAQI_NGS.sh -g $genome_seq  -z $genome_size   -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right   -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -y $plot -x $your_chrid ");
 }}
 
 __END__
@@ -234,10 +237,11 @@ __END__
 	--ngs_coverage|-avgs		Average NGS coverage. Default: 100
   ***Other parameters
 	--gapmodel|-gm			Gap[N] is treated as 1:SER 2:LER. Default: 1
-	--regional_window|-rw		Regional quality score. Default: 1000000
+	--regional_window|-rw		Regional quality score. Default: 50000
 	--break|-b			Break chimera fragment. Default: F
 	--map|-x			Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
 	--mapq|-q			Minimum reads mapping quality. Default: 20
 	--plot|-pl			Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
+	--plot_ids|-ids			An file including selected assembly IDs for plotting. Default use all IDs.		             
         --thread|-t			The number of thread used in alignment. Default: 10
 
