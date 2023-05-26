@@ -66,7 +66,6 @@ pod2usage(-msg=>$msg,-exitval=>1,-verbose=>99, -sections=>'NAME|SYNOPSIS|AUTHOR|
 if (-d "LRout"){ die "Error::cannot create directory, 'LRout' already exists, Exit !";}
 if (-d "SRout"){die "Error::cannot create directory, 'SRout' already exists, Exit !";}
 
-if ( ! -e $your_chrid ){$your_chrid="seq.size"; print "$your_chrid doesn't exist, use all ids for plotting\n\n";  }
 if ( ! -e $genome_seq ){print $usage;
                 die "\nError: -g  genome_seq file(.fa) :$genome_seq doesn't exist, please check!\n\n" ;   }
 if ($genome_seq =~/\.tar$|\.gz$|\.zip$|\.bz2$|\.xz$/  ){
@@ -151,7 +150,7 @@ print "Alignment thread(-t): $thread\n";
 print "-------------------------Start Running------------------------\n";
 system("perl $bin_path/../src/fetch_size.pl $genome_seq >seq.size");
 my $genome_size="seq.size";
-if ( ! -e $your_chrid ){$your_chrid="seq.size"; print "$your_chrid doesn't exist, use all ids for plotting\n\n";  }
+if ( ! -e $your_chrid ){$your_chrid="seq.size";   }
 
 if (  -e $long_input ){
 	if ( -e $short_input1 or -e $short_input2){
