@@ -1,6 +1,6 @@
 src=`cd $(dirname $0); pwd -P`
 pipline=$(basename $0)
-Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fa -z  Genome.fa.size -e SRout/SR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
+Usage="\nUsage:\n\t#Genome assessing using AQI:\n\t$pipline -g  Genome.fa -z  Genome.fa.size -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth  [default: -r 0.75 -p 0.4 -q 0.6 -R 0.65 -P 0.4 -Q 0.6 -f 0.1 -M 10000 -w 1000000 -n 10 -j 1 -b F -m 1000000]"
 
 name="out"
 skewned_rate=0.1
