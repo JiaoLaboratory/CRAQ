@@ -76,8 +76,8 @@ def draw_circos(genome_size,genome_error_loc,genome_score,scaffolds_ids,output):
             if 'SER' in line:
                 line = line.strip().split()
                 name = line[0]
-                start = int(line[1]) - max(length_list)/1000
-                end = int(line[1]) + max(length_list)/1000
+                start = int(line[1]) - max(length_list)/2000
+                end = int(line[1]) + max(length_list)/2000
                 width = end - start
                 if name in scaffolds_ids_list:
                     if name not in arcdata_dict:
