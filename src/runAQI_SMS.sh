@@ -167,6 +167,7 @@ perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/uncertain_region.bed r
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LER.out >runAQI_out/strER_out/out_final.LER.bed
 perl -alne  '$a=$F[1]+1;print  "$F[0]\t$F[1]\t$a\t$F[-1]"' runAQI_out/strER_out/out_final.LHR.out >runAQI_out/strER_out/out_final.LHR.bed
+perl -alne  'print if( $F[3]>2 && ($F[3]/$F[4])> 0.65 && ($F[3]/$F[4])< 0.75)' LRout/LR_clip.coverRate.filter >runAQI_out/strER_out/ambiguous.HR.ER
 
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp runAQI_out/locER_out runAQI_out/strER_out/*_putative*
 rm  runAQI_out/tmp_merged*
