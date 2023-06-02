@@ -153,7 +153,7 @@ echo -e "[M::worker_pipeline:: Collect potential LER]"
 #get putative.HR
 	perl -alne 'print if($F[3]/$F[4]<='$lhe_cutoff_right'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.HR"
         perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.HR" $next_clip_dis >LRout/$LRname"_putative.HR.tmp"
-        perl -alne  'print if($F[5]>0.5)' LRout/$LRname"_putative.HR.tmp" |cut  -f -5 >LRout/$LRname"_putative.HR"
+        perl -alne  'print if($F[5]>0.85)' LRout/$LRname"_putative.HR.tmp" |cut  -f -5 >LRout/$LRname"_putative.HR"
 
 #get putative.ER
         perl -alne 'print if($F[3]/$F[4]>='$lrbk_cutoff'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.ER"
