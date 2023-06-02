@@ -1,3 +1,4 @@
+# Step-by-step instructions  
 ## Quick start using the test data
 ```
 $ cd CRAQ/Example && bash run_example.sh
