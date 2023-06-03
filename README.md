@@ -28,14 +28,13 @@ $ git clone https://github.com/JiaoLaboratory/CRAQ.git
 #### "craq" is implemented for assembly validation
 CRAQ intergrates the reads-mapping status (including reads coverage, clipping signals) of NGS short-reads and SMS long-reads to identify types of assembly errors and heterozygous variants. The process is simple to run, requiring as input an assembly in FASTA(.fa) format, and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data. Alternatively, the user can map the reads to the assembly in advance and provide two BAM files as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were selected for genomic short illumina and long HiFi mapping, respectively.
 
-#### Usage
 When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
-$ craq  -g  Genome.fa -lr SMS_sort.bam -sr NGS_sort.bam 
+$ craq  -g your_assembly.fa -lr SMS_sort.bam -sr NGS_sort.bam 
 ```     
 If only sequencing reads are available, By default, read mapping is implemented using Minimap2.   
 ```
-$ craq  -g  Genome.fa -lr SMS.fa.gz -sr NGS_R1.fa.gz,NGS_R2.fa.gz
+$ craq  -g  your_assembly.fa -lr SMS.fa.gz -sr NGS_R1.fa.gz,NGS_R2.fa.gz
 ```
 
 ### Main output (runAQI_out):  
@@ -49,10 +48,10 @@ out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
 
-Load output to IGV: 
-![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Example/Example.png)
+Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/edit/main/src/stepREADME.md
 
-## Usage
+
+##  Parameter settings
 For more details about the usage and parameter settings, please see the help pages by running:
 ```
 $ craq -h
