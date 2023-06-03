@@ -31,11 +31,11 @@ CRAQ intergrates the reads-mapping status (including reads coverage, clipping si
 
 When mapping alignment file (.bam) are provided: (recommended). Important: sorting (samtools sort) and indexing (samtools index) all bam files before running the pipeline is required.
 ```
-$ craq  -g your_assembly.fa -lr SMS_sort.bam -sr NGS_sort.bam 
+$ craq  -g your_assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam 
 ```     
 If only sequencing reads are available, By default, read mapping is implemented using Minimap2.   
 ```
-$ craq  -g  your_assembly.fa -lr SMS.fa.gz -sr NGS_R1.fa.gz,NGS_R2.fa.gz
+$ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
 ```
 
 ### Main output (runAQI_out):  
@@ -59,7 +59,7 @@ For more details about the usage and parameter settings, please see the help pag
 $ craq -h
 ```
 Usage:
-      craq [options] -g genome.fa -lr SMS_sort.bam -sr NGS_sort.bam
+      craq [options] -g genome.fa -sms SMS_sort.bam -ngs NGS_sort.bam
 
      Options:
 
@@ -68,8 +68,8 @@ Usage:
 
       ***Required parameters
             --genome|-g                     Assembly sequence file (.fa)
-            --sms_input|-lr                 SMS long-read alignment(.bam) or sequences(.fq.gz)
-            --ngs_input|-sr                 NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
+            --sms_input|-sms                 SMS long-read alignment(.bam) or sequences(.fq.gz)
+            --ngs_input|-ngs                 NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
       ***Filter parameters
             --min_ngs_clip_num|-sn          Minimum number of NGS clipped-reads. Default: 2
             --ngs_clip_coverRate|-sf        Minimum proportion of NGS clipped-reads. Default: 0.75
@@ -94,9 +94,6 @@ Usage:
 
 Note:
 Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
-```
-$ conda install seqkit   
-```
 i.e. split long-read sequences into 4 parts
 ```
 $ seqkit split SMS.fa  -p 4 -f
@@ -105,3 +102,4 @@ Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_0
 ```
 $ craq  -g  Genome.fa -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
 ```
+In addition, users can run the core CRAQ programs separately to increase speed. details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md
