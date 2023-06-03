@@ -50,7 +50,7 @@ out_circos.pdf : Drawing genomic metrics.
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
 uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
-Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/src/stepREADME.md
+Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
 
 ##  Parameter settings
