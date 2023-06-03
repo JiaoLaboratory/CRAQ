@@ -25,7 +25,7 @@ $ git clone https://github.com/JiaoLaboratory/CRAQ.git
 $ cd CRAQ/Example/ && bash run_example.sh
 ```
 
-### CRAQ running
+## CRAQ running
 #### "craq" is implemented for assembly validation
 CRAQ intergrates the reads-mapping status (including reads coverage, clipping signals) of NGS short-reads and SMS long-reads to identify types of assembly errors and heterozygous variants. The process is simple to run, requiring as input an assembly in FASTA(.fa) format, and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data. Alternatively, the user can map the reads to the assembly in advance and provide two BAM files as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were selected for genomic short illumina and long HiFi mapping, respectively.
 
