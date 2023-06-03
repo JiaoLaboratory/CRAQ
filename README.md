@@ -93,7 +93,8 @@ Usage:
 
 
 Note:
-Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
+Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
+Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
 i.e. split long-read sequences into 4 parts
 ```
 $ seqkit split SMS.fa  -p 4 -f
@@ -102,4 +103,3 @@ Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_0
 ```
 $ craq  -g  Genome.fa -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
 ```
-In addition, users can run the core CRAQ programs separately to increase speed. details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md
