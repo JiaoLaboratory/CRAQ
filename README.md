@@ -22,6 +22,7 @@ Only required for plotting (pip install python-circos)
 
 ```
 $ git clone https://github.com/JiaoLaboratory/CRAQ.git  
+$ export PATH=/path/to/CRAQ/bin:$PATH
 $ cd CRAQ/Example/ && bash run_example.sh
 ```
 
