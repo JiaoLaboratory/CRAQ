@@ -2,7 +2,8 @@
 ## Quick start using the test data
 ```
 $ cd CRAQ/Example && bash run_example.sh
-```                           ###After running CRAQ you will get the following results#### 
+```                           
+                       ###After running CRAQ you will get the following results####  
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/390b5e32-d317-479a-9f04-7c18f63b6294)
 
 ## How to inspect CRAQ output in IGV? 
