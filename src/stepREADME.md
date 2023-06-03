@@ -9,6 +9,7 @@ $ cd CRAQ/Example && bash run_example.sh
 
 ### you could inspect the CRAQ output in IGV: 
 ###how to Load CRAQ output to IGV ? ###  
-![Uploading image.png…]()
+
+![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/9e4f98a1-31a2-4ad7-b66c-6d6d79450ace)
 
 
