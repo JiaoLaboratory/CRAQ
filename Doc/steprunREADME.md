@@ -42,3 +42,5 @@ out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
 
+Note:       
+Step1 and step2 can be performed simultaneously to accelerate the process 
