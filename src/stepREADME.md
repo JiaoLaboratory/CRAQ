@@ -5,7 +5,7 @@ $ cd CRAQ/Example && bash run_example.sh
 ```
                            ###After running CRAQ you will get the following results#### 
 
-![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/c72f5d5d-6982-4bbd-9d42-d39d0115cf47)
+![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/390b5e32-d317-479a-9f04-7c18f63b6294)
 
 ## You could inspect CRAQ output in IGV: 
                             ###how to Load CRAQ output to IGV ? ###  
