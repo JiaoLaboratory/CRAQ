@@ -18,10 +18,11 @@ Both SAMtools and Minimap2 are straightforward to install following the instruct
 Place the SAMtools and minimap2 executable in your path.
 4. pycircos (python 3.7later) (https://github.com/ponnhide/pyCircos) 
 Only required for plotting (pip install python-circos)  
-### Install
+### Install and test
 
 ```
-$ git clone https://github.com/JiaoLaboratory/CRAQ.git
+$ git clone https://github.com/JiaoLaboratory/CRAQ.git  
+$ cd CRAQ/Example/ && bash run_example.sh
 ```
 
 ### CRAQ running
