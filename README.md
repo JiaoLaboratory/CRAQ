@@ -47,7 +47,8 @@ strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous varian
 out_regional.Report : Statistics for regional genomic metrics.  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
 out_circos.pdf : Drawing genomic metrics.  
-out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
+out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
+uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/src/stepREADME.md
 
