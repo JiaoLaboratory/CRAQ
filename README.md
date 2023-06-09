@@ -44,7 +44,7 @@ locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
 locER/ambiguous.HR.ER : Coordinates of some ambiguous samll error or variants.  
 strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakage.  
-strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants. 
+strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
 strER_out/ambiguous.HR.ER : Coordinates of some ambiguous structral error or variants.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
