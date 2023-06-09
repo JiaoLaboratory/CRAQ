@@ -6,7 +6,7 @@ CRAQ (Clipping Reveals Assembly Quality), a reference-free genome assembly evalu
 
 ## Installation
 
-### Requirements:
+### Requirements
 CRAQ should install on most standard flavors of Linux (OSX and Windows are currently under development). Before running CRAQ, you need to make sure that several pieces of software and/or modules are installed on the system:
 
 1. SAMtools((1.3.1+)) library for accessing SAM/BAM files, available from SourceForge:
@@ -38,7 +38,7 @@ If only sequencing reads are available, By default, read mapping is implemented 
 $ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
 ```
 
-### Output:  
+### Output  
 ./runAQI_out/  
 out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
