@@ -45,7 +45,7 @@ out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
 
-
+### Splitting long sequences for speeding up
 Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
 ```
 $ conda install seqkit
