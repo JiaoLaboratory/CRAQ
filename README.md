@@ -39,7 +39,7 @@ $ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x ma
 ```
 
 ### Main Output:  
-./runAQI_out/
+./runAQI_out/  
 locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
 strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakage.  
@@ -51,14 +51,14 @@ out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).
 uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
 #### Other Output:
-./LRout/
+./LRout/  
 LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.
 LR_sort.bam.bai : Index of alignment file.
 LR_sort.depth : SMS mapping coverage.
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
 LR_putative.ER.HR : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.
 
-./SRout/
+./SRout/  
 SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.
 SR_sort.bam.bai : Index of alignment file.
 SR_sort.depth : NGS mapping coverage.
