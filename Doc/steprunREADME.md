@@ -44,3 +44,17 @@ out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)
 
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
+
+
+Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.
+```
+$ conda install seqkit
+```
+i.e. split long-read sequences into 4 parts
+```
+$ seqkit split SMS.fa  -p 4 -f
+```
+Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_004.fa, then performing the following running will reduce the time for sequence alignment
+```
+$ craq  -g  Genome.fa -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
+```
