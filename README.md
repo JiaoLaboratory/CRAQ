@@ -38,8 +38,8 @@ If only sequencing reads are available, By default, read mapping is implemented 
 $ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
 ```
 
-### Main output (runAQI_out):  
-
+### Main Output:  
+./runAQI_out/
 locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
 strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakage.  
@@ -50,6 +50,22 @@ out_circos.pdf : Drawing genomic metrics.
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
 uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
+#### Other Output:
+./LRout/
+LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.
+LR_sort.bam.bai : Index of alignment file.
+LR_sort.depth : SMS mapping coverage.
+LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
+LR_putative.ER.HR : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.
+
+./SRout/
+SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.
+SR_sort.bam.bai : Index of alignment file.
+SR_sort.depth : NGS mapping coverage.
+SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
+SR_putative.ER.HR : Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.
+
+### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
 
@@ -92,14 +108,5 @@ Usage:
 
 
 
-Note:
+## Parallel running to speed up
 Read mapping is currently the most resource intensive step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
-Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.  
-e.g. split long-read sequences into 4 parts
-```
-$ seqkit split SMS.fa  -p 4 -f
-```
-Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_004.fa, then performing the following running will reduce the time for sequence alignment
-```
-$ craq  -g  Genome.fa -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa -sr  NGS_R1.fa.gz,NGS_R2.fa.gz
-```
