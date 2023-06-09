@@ -19,7 +19,7 @@ $ seqkit split SMS.fa  -p 4 -f
 Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_004.fa, then performing the following running will reduce the time for sequence alignment, then：   
 
 ```
-$ bash src/runLR.sh -g  Genome.fa -z Genome.fa.size -1 SMS_sort.bam  -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa   
+$ bash src/runLR.sh -g  Genome.fa -z Genome.fa.size -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa   
 ```
 
 
