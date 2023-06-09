@@ -51,18 +51,18 @@ out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).
 uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
 ./LRout/  
-LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.
-LR_sort.bam.bai : Index of alignment file.
-LR_sort.depth : SMS mapping coverage.
-LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
-LR_putative.ER.HR : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.
+LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.  
+LR_sort.bam.bai : Index of alignment file.  
+LR_sort.depth : SMS mapping coverage.  
+LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
+LR_putative.ER.HR : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.  
 
 ./SRout/  
-SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.
-SR_sort.bam.bai : Index of alignment file.
-SR_sort.depth : NGS mapping coverage.
-SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.
-SR_putative.ER.HR : Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.
+SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.  
+SR_sort.bam.bai : Index of alignment file.  
+SR_sort.depth : NGS mapping coverage.  
+SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
+SR_putative.ER.HR : Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.  
 
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
