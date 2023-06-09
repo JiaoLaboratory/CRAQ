@@ -38,7 +38,7 @@ SR_putative.ER.HR	: Coordinates of putative small-scale errors or heterozygous i
 Note:  
 If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(local alignment) option should be performed for generating clipping signal.  
 
-3. Benchmark genomic quality using AQI.       
+### 3. Benchmark genomic quality using AQI.       
 ```
 $ bash src/runAQI.sh -g  Genome.fa -z  Genome.fa.size -e LRout/LR_eff.size  -c SRout/SR_putative.ER.HR -C LRout/LR_putative.ER.HR  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
