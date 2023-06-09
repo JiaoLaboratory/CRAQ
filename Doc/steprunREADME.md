@@ -13,11 +13,9 @@ LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, posit
 LR_putative.ER.HR  : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.  
 
 Alternatively, splitting query sequences into multiple pieces for multitasking alignments will benefit time cost. SeqKit (https://bioinf.shenwei.me/seqkit/) could be implemented to split SMS sequences into number of parts for user.  
-$ conda install seqkit
 i.e. split long-read sequences into 4 parts  
 $ seqkit split SMS.fa  -p 4 -f  
 Which will output: SMS.part_001.fa, SMS.part_002.fa, SMS.part_003.fa, SMS.part_004.fa, then performing the following running will reduce the time for sequence alignment。  
-
 $ bash src/runLR.sh -g  Genome.fa -z Genome.fa.size -1 SMS_sort.bam  -lr SMS.part_001.fa,SMS.part_002.fa,SMS.part_003.fa,SMS.part_004.fa   
 
 
