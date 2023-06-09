@@ -38,7 +38,7 @@ If only sequencing reads are available, By default, read mapping is implemented 
 $ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
 ```
 
-### Main Output:  
+### Output:  
 ./runAQI_out/  
 locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
@@ -50,7 +50,6 @@ out_circos.pdf : Drawing genomic metrics.
 out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
 uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
 
-#### Other Output:
 ./LRout/  
 LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.
 LR_sort.bam.bai : Index of alignment file.
