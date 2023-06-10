@@ -98,6 +98,7 @@ Usage:
             --sms_coverage|-avgl            Average SMS coverage. Default: 100
             --ngs_coverage|-avgs            Average NGS coverage. Default: 100
       ***Other parameters
+            --search_cluster|-sc            Detect error clusters nearby an SER/LER breakpoint. Default: "T" (time consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:SER 2:LER. Default: 1
             --regional_window|-rw           Regional quality score. Default: 50000
             --break|-b                      Break chimera fragment. Default: F
