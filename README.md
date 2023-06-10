@@ -49,7 +49,7 @@ locER_out/out_SER_region.bed	: Error clusters nearby SER breakage.
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
 locER/ambiguous.HR.ER : Coordinates of some ambiguous samll error or variants.  
 strER_out/out_final.LER.bed	: Exact coordinates of large structral breakage.  
-strER_out/out_LER_region.bed	:  Error clusters nearby structral breakage.  
+strER_out/out_LER_region.bed	:  Error clusters nearby LER breakage.  
 strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
 strER_out/ambiguous.HR.ER : Coordinates of some ambiguous structral error or variants.  
 uncertain.bed : Uncertain genomic regions at current parameter settings.  
