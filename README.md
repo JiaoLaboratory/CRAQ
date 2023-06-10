@@ -44,13 +44,15 @@ out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L
 out_regional.Report : Statistics for regional genomic metrics.  
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
-locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
+locER_out/out_final.SER.bed	: Exact coordinates of small regional errors. 
+locER_out/out_SER_region.bed	: An region of small regional errors.  
 locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
 locER/ambiguous.HR.ER : Coordinates of some ambiguous samll error or variants.  
-strER_out/out_final.LER.bed	: Exact coordinates of large structral error breakage.  
+strER_out/out_final.LER.bed	: Exact coordinates of large structral breakage.  
+strER_out/out_LER_region.bed	: An region of large structral breakage.  
 strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
 strER_out/ambiguous.HR.ER : Coordinates of some ambiguous structral error or variants.  
-uncertain_region.bed : Uncertain genomic regions at current parameter settings.  
+uncertain.bed : Uncertain genomic regions at current parameter settings.  
 
 ./LRout/  
 LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.  
