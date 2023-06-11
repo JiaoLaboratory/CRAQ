@@ -40,7 +40,7 @@ $ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x ma
 
 ### Output  
 ./runAQI_out/  
-out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
+out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single and whole assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
