@@ -6,6 +6,11 @@ $ cd CRAQ/Example && bash run_example.sh
                               ###After running CRAQ you will get the following results####  
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/390b5e32-d317-479a-9f04-7c18f63b6294)
 
+![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/88a932a3-a112-47a4-b88a-ca094b0310cf)
+![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/b287272d-cd57-41bf-99f2-40e22ab8e019)
+
+
+
 ## How to inspect CRAQ output in IGV? 
 ###download Integrative Genomics Viewer (IGV) from here: https://software.broadinstitute.org/software/igv/download ###   
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/89bfca08-7d5d-4d2a-9153-31980d6b105f)
