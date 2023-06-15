@@ -4,7 +4,7 @@
 $ cd CRAQ/Example && bash run_example.sh
 ```                           
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/9167e82d-7e6e-479c-b007-dde60a91ac10)
-###After running CRAQ you will get the following results under the Output dictionary ####  
+            ###After running CRAQ you will get the following results under the Output dictionary ####    
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/9406574c-762f-42af-a52e-0f7e5b61db60)
 
 
