@@ -108,7 +108,7 @@ Usage:
             --plot|-pl                      Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
             --plot_ids|-ids                 An file including selected assembly IDs for plotting. Default use all IDs.                       
             --thread|-t                     The number of thread used in alignment. Default: 10
-            --output_dir|-D                 User-specified output directory. Default: ./output
+            --output_dir|-D                 User-specified output directory. Default: ./Output
 
 
 ## Parallel running to speed up
