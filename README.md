@@ -44,12 +44,12 @@ out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L
 out_regional.Report : Statistics for regional genomic metrics.  
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
-locER_out/out_final.SER.bed	: Exact coordinates of small regional errors.  
-locER_out/out_final.SHR.bed     : Exact coordinates of small heterozygous indels.  
-locER/ambiguous.HR.ER : Coordinates of some fuzzy distinguished samll error or variants.  
-strER_out/out_final.LER.bed	: Exact coordinates of large structral breakage.  
-strER_out/out_final.LHR.bed	: Exact coordinates of structral heterozygous variants.  
-strER_out/ambiguous.HR.ER : Coordinates of some fuzzy distinguished structral error or variants.  
+locER_out/out_final.CRE.bed	: Exact coordinates of regional errors (CREs).  
+locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous indels (CRHs).  
+locER/ambiguous.RE.RH : Coordinates of some fuzzy distinguished regional error or variants (CRE|CRHs).  
+strER_out/out_final.CSE.bed	: Exact coordinates of large structral breakage (CSEs).  
+strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
+strER_out/ambiguous.SE.SH : Coordinates of some fuzzy distinguished structral error or heterozygous variants (CSE|CSHs).  
 uncertain.bed : Uncertain genomic regions at current parameter settings.  
 
 ./LRout/  
@@ -57,14 +57,14 @@ LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser
 LR_sort.bam.bai : Index of alignment file.  
 LR_sort.depth : SMS mapping coverage.  
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-LR_putative.ER.HR : Coordinates of putative structral errors or variant breakages. Filtered from LR_clip.coverRate file.  
+LR_putative.SE.SH : Coordinates of putative large structral CSE or CSH breakages. Filtered from LR_clip.coverRate file.  
 
 ./SRout/  
 SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.  
 SR_sort.bam.bai : Index of alignment file.  
 SR_sort.depth : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-SR_putative.ER.HR : Coordinates of putative small-scale errors or heterozygous indel breakages. Filtered from SR_clip.coverRate file.  
+SR_putative.RE.RH : Coordinates of putative small-scale CRE errors or CRH breakages. Filtered from SR_clip.coverRate file.  
 
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
@@ -104,10 +104,11 @@ Usage:
             --break|-b                      Break chimera fragment. Default: F
             --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
             --mapq|-q                       Minimum reads mapping quality. Default: 20
+            --norm_window|-nw               Window size for normalizing error count. Default: 0.0001*(total size)
             --plot|-pl                      Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
             --plot_ids|-ids                 An file including selected assembly IDs for plotting. Default use all IDs.                       
             --thread|-t                     The number of thread used in alignment. Default: 10
-
+            --output_dir|-D                 User-specified output directory. Default: ./output
 
 
 ## Parallel running to speed up
