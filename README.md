@@ -2,7 +2,7 @@
 ### Pinpoint assembly errors for genomic assessing and correcting
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Fig.png) 
 ## Summary
-CRAQ (Clipping Reveals Assembly Quality), a reference-free genome assembly evaluator could assess assembly accuracy and provide detailed assembly error information. This information includes precise locations of small-scale local errors (SERs), large-scale structural errors (LERs), and regional and overall classified AQI metrics (S-AQI & L-AQI) for assembly validation. CRAQ considers the haplotype features, and provide precise locus of heterozygous regions (SHRs & LHRs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction. This document has the information on how to run CRAQ.
+CRAQ (Clipping Reveals Assembly Quality), a reference-free genome assembly evaluator could assess assembly accuracy and provide detailed assembly error information. This information includes precise locations of small-scale Clip-based Regional Errors (CREs), large-scale Clip-based Structural Errors (CSEs), and regional and overall classified AQI metrics (S-AQI & L-AQI) for assembly validation. CRAQ considers the haplotype features, and provide precise locus of types of heterozygous variants (CRHs & CSHs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ could identify underlying chimeric contigs and break them at conflict breakpoints prior to pseudomolecule construction. This document has the information on how to run CRAQ.
 
 ## Installation
 
@@ -57,14 +57,14 @@ LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser
 LR_sort.bam.bai : Index of alignment file.  
 LR_sort.depth : SMS mapping coverage.  
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-LR_putative.SE.SH : Coordinates of putative large structral CSE or CSH breakages. Filtered from LR_clip.coverRate file.  
+LR_putative.SE.SH : Coordinates of putative large structral CSE or CSH. Filtered from LR_clip.coverRate file.  
 
 ./SRout/  
 SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.  
 SR_sort.bam.bai : Index of alignment file.  
 SR_sort.depth : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-SR_putative.RE.RH : Coordinates of putative small-scale CRE errors or CRH breakages. Filtered from SR_clip.coverRate file.  
+SR_putative.RE.RH : Coordinates of putative small-scale CRE or CRH. Filtered from SR_clip.coverRate file.  
 
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
@@ -98,8 +98,8 @@ Usage:
             --sms_coverage|-avgl            Average SMS coverage. Default: 100
             --ngs_coverage|-avgs            Average NGS coverage. Default: 100
       ***Other parameters
-            --search_cluster|-sc            Detect error clusters nearby an SER/LER breakpoint. Default: "T" (time consuming)
-            --gapmodel|-gm                  Gap[N] is treated as 1:SER 2:LER. Default: 1
+            --search_cluster|-sc            Detect error clusters nearby an CRE|CSE breakpoint. Default: "T" (time consuming)
+            --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
             --regional_window|-rw           Regional quality score. Default: 50000
             --break|-b                      Break chimera fragment. Default: F
             --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
