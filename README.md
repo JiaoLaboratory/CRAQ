@@ -53,18 +53,18 @@ strER_out/ambiguous.SE.SH : Coordinates of some fuzzy distinguished structral er
 uncertain.bed : Uncertain genomic regions at current parameter settings.  
 
 ./LRout/  
-LR_sort.bam : Filtered SMS alignment file, for view inspection in genome browser.  
-LR_sort.bam.bai : Index of alignment file.  
-LR_sort.depth : SMS mapping coverage.  
+LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser.  
+LR_sort.bam.bai	: Index of alignment file.  
+LR_sort.depth	: SMS mapping coverage.  
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-LR_putative.SE.SH : Coordinates of putative large structral CSE or CSH. Filtered from LR_clip.coverRate file.  
+LR_putative.SE.SH  : Coordinates of putative structral errors or variant breakages (putative CSE|CSHs). Filtered from LR_clip.coverRate file.  
 
 ./SRout/  
-SR_sort.bam : Filtered NGS alignment file, for view inspection in genome browser.  
+SR_sort.bam     : Filtered NGS alignment file, could for view inspection in Genome Browsers.  
 SR_sort.bam.bai : Index of alignment file.  
-SR_sort.depth : NGS mapping coverage.  
+SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-SR_putative.RE.RH : Coordinates of putative small-scale CRE or CRH. Filtered from SR_clip.coverRate file.  
+SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heterozygous indel breakages (putative CRE|CRHs). Filtered from SR_clip.coverRate file.
 
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
