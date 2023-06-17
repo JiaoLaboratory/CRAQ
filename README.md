@@ -1,6 +1,5 @@
 # CRAQ:
 ### Pinpoint assembly errors for genomic assessing and correcting
-![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/d1e0c9b6-8f30-4a41-8e27-1b26eca829de)
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/Figure.png)
 
 ## Summary
