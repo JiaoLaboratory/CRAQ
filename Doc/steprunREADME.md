@@ -31,15 +31,18 @@ If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(lo
 ```
 $ bash src/runAQI.sh -g  Genome.fa -z  Genome.fa.size -e LRout/LR_eff.size  -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
-./runAQI_out:  
-locER_out/out_final.CRE.bed	: Exact coordinates of small regional errors.  
-locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous indels.  
-strER_out/out_final.CSE.bed	: Exact coordinates of large structral error breakage.  
-strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants.  
+runAQI_out:  
+out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single and whole assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
-out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single scaffold and whole-assembly.  
 out_circos.pdf : Drawing genomic metrics.  
-out_correct.fa	: A CRAQ-corrected FASTA fragments generated (if --break|-b T)  
+out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
+locER_out/out_final.CRE.bed	: Exact coordinates of regional errors (CREs).  
+locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous indels (CRHs).  
+locER/ambiguous.RE.RH : Coordinates of some fuzzy distinguished regional error or variants (CRE|CRHs).  
+strER_out/out_final.CSE.bed	: Exact coordinates of large structral breakage (CSEs).  
+strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
+strER_out/ambiguous.SE.SH : Coordinates of some fuzzy distinguished structral error or heterozygous variants (CSE|CSHs).  
+low_confidence.bed : low confident genomic regions at current parameter settings.  
 
 Note:       
 Step1 and step2 can be performed simultaneously to accelerate the process 
