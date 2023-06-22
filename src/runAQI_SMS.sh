@@ -166,8 +166,8 @@ perl $src/final_short_report_minlen.pl runAQI_out/seq.H.stat  0.85 $report_minct
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report.tmp"
 
 cat  $LR_coverRate runAQI_out/Gap_out/$name"_gap.out" > runAQI_out/all_putative_and_gapN.tmp
-perl $src/get_nonmap_region.pl LRout/Nonmap.loc | perl $src/search_uncertain_region.pl - runAQI_out/all_putative_and_gapN.tmp >runAQI_out/uncertain.bed
-perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/uncertain.bed runAQI_out/$name"_final.Report.tmp" >runAQI_out/$name"_final.Report"
+perl $src/get_nonmap_region.pl LRout/Nonmap.loc | perl $src/search_uncertain_region.pl - runAQI_out/all_putative_and_gapN.tmp >runAQI_out/low_confidence.bed
+perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/low_confidence.bed runAQI_out/$name"_final.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN
 perl -alne  '$a=$F[1]+1;print "$F[0]\t$F[1]\t$a\t$F[0]:$F[1]\tCSE"'  runAQI_out/strER_out/out_final.LER.out >runAQI_out/strER_out/out_final.CSE.bed
