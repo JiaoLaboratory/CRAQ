@@ -108,7 +108,7 @@ SR_sort.bam.bai : Index of alignment file.
 SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
 SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heterozygous indel breakages (putative CRE|CRHs). Filtered from SR_clip.coverRate file.  
-### General quality classification using AQI
+#### General quality classification using AQI
 　	![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/63e458d2-6307-4c7d-8707-66d418f8e567)
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
