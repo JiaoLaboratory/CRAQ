@@ -1,4 +1,4 @@
-#                                    CRAQ
+# CRAQ
 ### Pinpoint assembly errors for genomic assessing and correcting
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/Fig.png)
 
