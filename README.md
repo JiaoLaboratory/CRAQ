@@ -60,7 +60,7 @@ Usage:
             --sms_coverage|-avgl            Average SMS coverage. Default: 100
             --ngs_coverage|-avgs            Average NGS coverage. Default: 100
       ***Other parameters
-            --search_cluster|-sc            Detect error clusters nearby an CRE|CSE breakpoint. Default: "T" (time consuming)
+            --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" (time consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
             --regional_window|-rw           Regional quality benchmarking. Default: 50000
             --break|-b                      Break chimera fragment. Default: F
