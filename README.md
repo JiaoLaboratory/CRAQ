@@ -47,8 +47,8 @@ Usage:
 
       ***Required parameters
             --genome|-g                     Assembly sequence file (.fa)
-            --sms_input|-sms                 SMS long-read alignment(.bam) or sequences(.fq.gz)
-            --ngs_input|-ngs                 NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
+            --sms_input|-sms                SMS long-read alignment(.bam) or sequences(.fq.gz)
+            --ngs_input|-ngs                NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
       ***Filter parameters
             --min_ngs_clip_num|-sn          Minimum number of NGS clipped-reads. Default: 2
             --ngs_clip_coverRate|-sf        Minimum proportion of NGS clipped-reads. Default: 0.75
