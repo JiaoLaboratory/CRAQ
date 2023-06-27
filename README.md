@@ -28,7 +28,7 @@ $ cd CRAQ/Example/ && bash run_example.sh
 
 ## CRAQ running
 ### "craq" is implemented for assembly validation
-CRAQ integrates the reads-mapping status (reads coverage & clipping signals) of NGS short-reads and SMS long-reads to detect types of assembly errors and heterozygous variants. The program requires an assembly in FASTA(.fa) format, and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data as input. Alternatively, users can map the reads to the assembly in advance and provide two sorted and indexed alignment files (sort.bam & sort.bam.bai) instead, which are highly recommended.
+CRAQ integrates the reads-mapping status (reads coverage & clipping signals) of NGS short-reads and SMS long-reads to detect types of assembly errors and heterozygous variants. The program requires an assembly in FASTA(.fa) format, and two (at least one) fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data as input. Alternatively, users can map the reads to the assembly in advance and provide two sorted and indexed alignment files (sort.bam & sort.bam.bai) instead, which are highly recommended.
 
 By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were used for genomic short illumina and long HiFi mapping, respectively.  
 
@@ -107,8 +107,9 @@ SR_sort.bam     : Filtered NGS alignment file, could for view inspection in Geno
 SR_sort.bam.bai : Index of alignment file.  
 SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heterozygous indel breakages (putative CRE|CRHs). Filtered from SR_clip.coverRate file.
-
+SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heterozygous indel breakages (putative CRE|CRHs). Filtered from SR_clip.coverRate file.  
+### General quality classification using AQI
+　	![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/63e458d2-6307-4c7d-8707-66d418f8e567)
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
