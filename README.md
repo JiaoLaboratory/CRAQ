@@ -74,11 +74,11 @@ Usage:
 ### Examples
 Standard inputs with genome sequence and two alignment files. 
 ```
-$ craq  -g your_assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam 
+$ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam 
 ```     
 By default, sequencing reads mapping is implemented using Minimap2 if only provided sequencing reads. Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were used for genomic short illumina and long HiFi mapping, respectively.
 ```
-$ craq  -g  your_assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
+$ craq  -g  assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
 ```
 
 ### Output files  
