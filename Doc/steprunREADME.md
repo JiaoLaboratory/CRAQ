@@ -10,7 +10,7 @@ LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser
 LR_sort.bam.bai	: Index of alignment file.  
 LR_sort.depth	: SMS mapping coverage.  
 LR_clip.coverRate: All output of SMS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at the position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
-LR_putative.SE.SH  : Coordinates of putative structral errors or variant breakages (putative CSE|CSHs). Filtered from LR_clip.coverRate file.  
+LR_putative.SE.SH  : Coordinates of putative large structural errors or variant breakages (putative CSE|CSHs). Filtered from LR_clip.coverRate file.  
 
 ### 2. NGS read mapping, filtering and putative SER calling.
 ```
@@ -18,7 +18,7 @@ $ bash src/runSR.sh -g  Genome.fa -z Genome.fa.size  -1 NGS_sort.bam
 ```
 
 SRout:  
-SR_sort.bam     : Filtered NGS alignment file, could for view inspection in genome browser.  
+SR_sort.bam     : Filtered NGS alignment file, could for view inspection in Genome Browsers.  
 SR_sort.bam.bai : Index of alignment file.  
 SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
@@ -32,16 +32,16 @@ If user used 'bowtie2' generate shortRead alignment in advance, the '--local'(lo
 $ bash src/runAQI.sh -g  Genome.fa -z  Genome.fa.size -e LRout/LR_eff.size  -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH  -d SRout/SR_sort.depth  -D LRout/LR_sort.depth
 ``` 
 runAQI_out:  
-out_final.Report : Summary reports inclinding classfied quality metrics(S-AQI, L-AQI) for single and whole assembly.  
+out_final.Report : Summary reports including classified  quality metrics(S-AQI, L-AQI) for single and whole assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
 locER_out/out_final.CRE.bed	: Exact coordinates of regional errors (CREs).  
 locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous indels (CRHs).  
 locER/ambiguous.RE.RH : Coordinates of some fuzzy distinguished regional error or variants (CRE|CRHs).  
-strER_out/out_final.CSE.bed	: Exact coordinates of large structral breakage (CSEs).  
+strER_out/out_final.CSE.bed	: Exact coordinates of large structural breakage (CSEs).  
 strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
-strER_out/ambiguous.SE.SH : Coordinates of some fuzzy distinguished structral error or heterozygous variants (CSE|CSHs).  
+strER_out/ambiguous.SE.SH : Coordinates of some ambiguous regions-maybe structural error or heterozygous variants (CSE|CSHs).  
 low_confidence.bed : low confident genomic regions at current parameter settings.  
 
 Note:       
