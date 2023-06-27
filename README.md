@@ -112,47 +112,5 @@ SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heter
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
-
-##  Parameter settings
-For more details about the usage and parameter settings, please see the help pages by running:
-```
-$ craq -h
-```
-Usage:
-      craq [options] -g genome.fa -sms SMS_sort.bam -ngs NGS_sort.bam
-
-     Options:
-
-      ***Help
-            --help|-h                       Print the help message and exit.
-
-      ***Required parameters
-            --genome|-g                     Assembly sequence file (.fa)
-            --sms_input|-sms                 SMS long-read alignment(.bam) or sequences(.fq.gz)
-            --ngs_input|-ngs                 NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
-      ***Filter parameters
-            --min_ngs_clip_num|-sn          Minimum number of NGS clipped-reads. Default: 2
-            --ngs_clip_coverRate|-sf        Minimum proportion of NGS clipped-reads. Default: 0.75
-            --min_sms_clip_num|-ln          Minimum number of SMS clipped-reads. Default: 2
-            --sms_clip_coverRate|-lf        Minimum proportion of SMS clipped-reads. Default: 0.75
-            --he_min|-hmin                  Lower clipping rate for heterozygous allele. Default: 0.4
-            --he_max|-hmax                  Upper clipping rate for heterozygous allele. Default: 0.6
-            --min_gap_size|-mgs             Gap[N] length greater than the threshold will be treated as breakage. Default: 10
-            --sms_coverage|-avgl            Average SMS coverage. Default: 100
-            --ngs_coverage|-avgs            Average NGS coverage. Default: 100
-      ***Other parameters
-            --search_cluster|-sc            Detect error clusters nearby an CRE|CSE breakpoint. Default: "T" (time consuming)
-            --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
-            --regional_window|-rw           Regional quality benchmarking. Default: 50000
-            --break|-b                      Break chimera fragment. Default: F
-            --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
-            --mapq|-q                       Minimum reads mapping quality. Default: 20
-            --norm_window|-nw               Window size for normalizing error count. Default: 0.0001*(total size)
-            --plot|-pl                      Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
-            --plot_ids|-ids                 An file including selected assembly IDs for plotting. Default use all IDs.                       
-            --thread|-t                     The number of thread used in alignment. Default: 10
-            --output_dir|-D                 User-specified output directory. Default: ./Output
-
-
 ## Parallel running to speed up
 Reads mapping is currently the most time-consuming step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
