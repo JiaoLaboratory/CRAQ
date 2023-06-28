@@ -43,7 +43,6 @@ For more details about the usage and parameter settings, please see the help pag
 ```
 $ craq -h
 ```
-        Options:  
       ***Help
             --help|-h                       Print the help message and exit.
 
