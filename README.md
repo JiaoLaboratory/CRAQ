@@ -3,7 +3,7 @@
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/Fig.png)
 
 ## Summary
-CRAQ (Clipping Reveals Assembly Quality) is a reference-free genome assembly evaluator that can assess the accuracy of assembled genomic sequences and provide detailed assembly quality assessment from multiple perspectives. It can report precise locations of small-scale Clip-based Regional Errors (CREs), large-scale Clip-based Structural Errors (CSEs), as well as regional and overall AQI metrics (S-AQI & L-AQI) for assembly evaluation. CRAQ also considered haplotype features which is important for identifying true misassembly. It can output coordinates of regional heterozygous variants (CRHs) and coordinates of structural heterozygous variants (CSHs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ detects potential chimeric contigs and break them at conflict breakpoints for assembly correction. This document has the information on how to run CRAQ.
+CRAQ (Clipping Reveals Assembly Quality) is a reference-free genome assembly evaluator that can assess the accuracy of assembled genomic sequences and provide detailed assembly quality assessment from multiple perspectives. It can report precise locations of small-scale Clip-based Regional Errors (CREs), large-scale Clip-based Structural Errors (CSEs), as well as regional and overall AQI metrics (S-AQI & L-AQI) for assembly evaluation. Through evaluating a large set of genome assemblies with different qualities, we classified genomes as following: AQI > 90, reference quality; AQI from 80-90, high quality; AQI from 60-80, draft quality; and AQI < 60, low quality CRAQ also considered haplotype features which is important for identifying true misassembly. It can output coordinates of regional heterozygous variants (CRHs) and coordinates of structural heterozygous variants (CSHs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ detects potential chimeric contigs and break them at conflict breakpoints for assembly correction. This document has the information on how to run CRAQ.
 
 ## Installation
 
@@ -43,9 +43,6 @@ For more details about the usage and parameter settings, please see the help pag
 ```
 $ craq -h
 ```
-Usage:
-      craq [options] -g genome.fa -sms SMS_sort.bam -ngs NGS_sort.bam
-
      Options:
 
       ***Help
@@ -105,14 +102,19 @@ SR_sort.bam.bai : Index of alignment file.
 SR_sort.depth   : NGS mapping coverage.  
 SR_clip.coverRate: All output of NGS clipping positions, with columns:chr, position, strand, number of clipped-reads, and total coverage at that position. The strand is just left-clipped(+) or right-clipped(-) to help identify the clipping orientation.  
 SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heterozygous indel breakages (putative CRE|CRHs). Filtered from SR_clip.coverRate file.  
-#### General quality classification using AQI
-　	![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/63e458d2-6307-4c7d-8707-66d418f8e567)
+
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
 ### Parallel running to speed up
 Reads mapping is currently the most time-consuming step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
 ### Running with NGS or long SMS data only
+If the users only have NGS data or SMS long read dta, CRAQ could just take one of these datasets at the expense of some reliability or informativity.
+Run CRAQ with SMS long read data only:  
 ```
-$ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam OR $ craq  -g assembly.fa -ngs NGS_sort.bam 
+$ craq  -g assembly.fa -sms SMS_sort.bam
+```     
+Run CRAQ with NGS data only:
+```
+$ craq  -g assembly.fa -ngs NGS_sort.bam
 ```     
