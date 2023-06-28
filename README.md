@@ -38,7 +38,7 @@ $ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam
 ```     
  
 
-###  Parameter settings
+##  Parameter settings
 For more details about the usage and parameter settings, please see the help pages by running:
 ```
 $ craq -h
@@ -73,7 +73,7 @@ $ craq -h
             --thread|-t                     The number of thread used in alignment. Default: 10
             --output_dir|-D                 User-specified output directory. Default: ./Output
 
-### Output files  
+## Output files  
 ./runAQI_out/  
 out_final.Report : Summary reports including classified  quality metrics(S-AQI, L-AQI) for single and whole assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
