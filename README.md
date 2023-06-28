@@ -110,9 +110,9 @@ SR_putative.RE.RH	: Coordinates of putative small-scale regional errors or heter
 ### Visually inspecting
 Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually inspecting, details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/loadIGVREADME.md
 
-## Parallel running to speed up
+### Parallel running to speed up
 Reads mapping is currently the most time-consuming step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
-## Running with NGS or long SMS data only
+### Running with NGS or long SMS data only
 ```
 $ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam | craq  -g assembly.fa -ngs NGS_sort.bam 
 ```     
