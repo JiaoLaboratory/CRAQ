@@ -42,8 +42,7 @@ $ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam
 For more details about the usage and parameter settings, please see the help pages by running:
 ```
 $ craq -h
-```
-     Options:
+```   Options:
 
       ***Help
             --help|-h                       Print the help message and exit.
