@@ -28,9 +28,15 @@ $ cd CRAQ/Example/ && bash run_example.sh
 
 ## CRAQ running
 ### "craq" is implemented for assembly validation
-CRAQ integrates the reads-mapping status (reads coverage & clipping signals) of NGS short-reads and SMS long-reads to detect types of assembly errors and heterozygous variants. The program requires an assembly in FASTA(.fa) format, and two (at least one) fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data as input. Alternatively, users can map the reads to the assembly in advance and provide two sorted and indexed alignment files (sort.bam & sort.bam.bai) instead, which are highly recommended.
-
-By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were used for genomic short illumina and long HiFi mapping, respectively.  
+CRAQ integrates the reads-mapping status (reads coverage & clipping signals) of NGS short-reads and SMS long-reads to detect types of assembly errors and heterozygous variants. The program requires an assembly in FASTA(.fa) format, and two fastq(.fq)/fasta(.fa) files representing NGS and SMS sequencing data as input. By default, Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were used for genomic short illumina and long HiFi mapping, respectively. 
+```
+$ craq  -g  assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
+```
+Alternatively, users can map the reads to the assembly in advance and provide two sorted and indexed alignment files (sort.bam & sort.bam.bai) instead, which are highly recommended.
+```
+$ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam 
+```     
+ 
 
 ###  Parameter settings
 For more details about the usage and parameter settings, please see the help pages by running:
@@ -71,15 +77,6 @@ Usage:
             --plot_ids|-ids                 An file including selected assembly IDs for plotting. Default use all IDs.                       
             --thread|-t                     The number of thread used in alignment. Default: 10
             --output_dir|-D                 User-specified output directory. Default: ./Output
-### Examples
-Standard inputs with genome sequence and two alignment files. 
-```
-$ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam 
-```     
-By default, sequencing reads mapping is implemented using Minimap2 if only provided sequencing reads. Minimap2 ‘–ax sr’ and  ‘–ax map-hifi’(‘map-hifi’ for PacBio HiFi,‘map-pb’ for PacBio CLR, ‘map-ont’ for ONT library) options were used for genomic short illumina and long HiFi mapping, respectively.
-```
-$ craq  -g  assembly.fa -sms SMS.fa.gz -ngs NGS_R1.fa.gz,NGS_R2.fa.gz -x map-hifi
-```
 
 ### Output files  
 ./runAQI_out/  
@@ -115,3 +112,7 @@ Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually in
 
 ## Parallel running to speed up
 Reads mapping is currently the most time-consuming step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
+## Running with NGS or long SMS data only
+```
+$ craq  -g assembly.fa -sms SMS_sort.bam -ngs NGS_sort.bam | craq  -g assembly.fa -ngs NGS_sort.bam 
+```     
