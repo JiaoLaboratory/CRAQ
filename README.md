@@ -3,7 +3,7 @@
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/Fig.png)
 
 ## Summary
-CRAQ (Clipping Reveals Assembly Quality) is a reference-free genome assembly evaluator that can assess the accuracy of assembled genomic sequences and provide detailed assembly quality assessment from multiple perspectives. It can report precise locations of small-scale Clip-based Regional Errors (CREs), large-scale Clip-based Structural Errors (CSEs), as well as regional and overall AQI metrics (S-AQI & L-AQI) for assembly evaluation. Through evaluating a large set of genome assemblies with different qualities, we classified genomes as following: AQI > 90, reference quality; AQI from 80-90, high quality; AQI from 60-80, draft quality; and AQI < 60, low quality CRAQ also considered haplotype features which is important for identifying true misassembly. It can output coordinates of regional heterozygous variants (CRHs) and coordinates of structural heterozygous variants (CSHs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ detects potential chimeric contigs and break them at conflict breakpoints for assembly correction. This document has the information on how to run CRAQ.
+CRAQ (Clipping Reveals Assembly Quality) is a reference-free genome assembly evaluator that can assess the accuracy of assembled genomic sequences and provide detailed assembly quality assessment from multiple perspectives. It can report precise locations of small-scale Clip-based Regional Errors (CREs), large-scale Clip-based Structural Errors (CSEs), as well as regional and overall AQI metrics (R-AQI & S-AQI) for assembly evaluation. Through evaluating a large set of genome assemblies with different qualities, we classified genomes as following: AQI > 90, reference quality; AQI from 80-90, high quality; AQI from 60-80, draft quality; and AQI < 60, low quality CRAQ also considered haplotype features which is important for identifying true misassembly. It can output coordinates of regional heterozygous variants (CRHs) and coordinates of structural heterozygous variants (CSHs) based on the ratio of clipped alignments and mapping coverage. Moreover, CRAQ detects potential chimeric contigs and break them at conflict breakpoints for assembly correction. This document has the information on how to run CRAQ.
 
 ## Installation
 
@@ -75,7 +75,7 @@ $ craq -h
 
 ## Output files  
 ./runAQI_out/  
-out_final.Report : Summary reports including classified  quality metrics(S-AQI, L-AQI) for single and whole assembly.  
+out_final.Report : Summary reports including classified  quality metrics(R-AQI, S-AQI) for single and whole assembly.  
 out_regional.Report : Statistics for regional genomic metrics.  
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
