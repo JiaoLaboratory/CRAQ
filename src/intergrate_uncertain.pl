@@ -38,7 +38,7 @@ open IN3,$final_report;
 my $per_chr_un_ratio=0;
 
 print "Short Report:\n";
-print "#Chr\tCovered.Rate\tLow-confident.Rate\tAvg.CRH\tAvg.CSH\tAvg.CRE(S-AQI)\tAvg.CSE(L-AQI)\n";
+print "#Chr\tCovered.Rate\tLow-confident.Rate\tAvg.CRH\tAvg.CSH\tAvg.CRE(R-AQI)\tAvg.CSE(S-AQI)\n";
 while (<IN3>){
 chomp;
 next if(/Short Report:/);
