@@ -13,7 +13,7 @@ my $avg_ler1=(split/\(/,$avg_ler)[0];
 $hr_hash{$chr}="$avg_ser1\t$avg_ler1";
 }
 
-print "Short Report:\n#Chr\tCovered.Rate\tavg.CRH\tavg.CSH\tavg.CRE(S-AQI)\tavg.CSE(L-AQI)\tWeight\tAQI\n";
+print "Short Report:\n#Chr\tCovered.Rate\tavg.CRH\tavg.CSH\tavg.CRE(R-AQI)\tavg.CSE(S-AQI)\tWeight\tAQI\n";
 open IN2,$er_report;
 while (<IN2>){
 chomp;
