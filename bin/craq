@@ -18,7 +18,7 @@ my $sms_clip_coverRate =0.65;
 my $he_cutoff_left=0.4;
 my $he_cutoff_right=0.6;
 
-my $gapmodel="F";
+my $gapmodel=1;
 my $mincontigsize=1000000; 
 my $break="F";
 #my $norm_window=50000;
