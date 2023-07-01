@@ -30,5 +30,8 @@ close IN2;
 
    for (keys  %dep0hash){
 next  if ($dep0hash{$_} ==0);
-print "$_\t0\n";}
+my ($chr,$loc,$stran)=(split/\s+/,$_)[0,1,2];
+print "$chr\t$loc\t$stran\t0.1\t0.1\n";
+#print "$_\t0\n";
+}
 
