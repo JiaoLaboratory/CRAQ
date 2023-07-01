@@ -114,7 +114,7 @@ if (  -e $short_input1 or -e $short_input2  ){
 	} else {die "\nError: -ngs NGS Alignment(.bam) or Reads(.fq) suffix file are required, please check !\n\n";}
 }
 
-	if($min_ngs_clip_num <0  ){die "\nError: -sn  $ngs_clip_coverRate \n";}
+	if($min_ngs_clip_num <0  ){die "\nError: -sn  $min_ngs_clip_num \n";}
 	if($ngs_clip_coverRate <=0 or $ngs_clip_coverRate >1){die "\nError: -sf  $ngs_clip_coverRate not in (0,1)\n";}
 	if($skewned_rate <0 or $skewned_rate >=1  ) {die "\nError: -d  $skewned_rate not in (0,1)\n";}
 	if($min_sms_clip_num <0  ){die "\nError: -ln  $min_sms_clip_num \n";}	
