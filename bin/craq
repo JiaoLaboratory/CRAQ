@@ -70,8 +70,6 @@ GetOptions(             'h|help'                      => \$help,
 pod2usage(-msg=>$msg,-exitval=>1,-verbose=>99, -sections=>'NAME|SYNOPSIS|AUTHOR|CONTACT') if ($help);
 #if (-d "LRout"){ die "Error::cannot create directory, 'LRout' already exists, Exit !";}
 #if (-d "SRout"){die "Error::cannot create directory, 'SRout' already exists, Exit !";}
-
-if (  -e "$output_dir"){ die "Error::cannot create directory, '$output_dir' already exists, Exit !";}else {system("mkdir -p $output_dir" );}
 if ( ! -e $genome_seq ){print $usage;
                 die "\nError: -g  genome_seq file(.fa) :$genome_seq doesn't exist, please check!\n\n" ;   }
 if ($genome_seq =~/\.tar$|\.gz$|\.zip$|\.bz2$|\.xz$/  ){
@@ -131,6 +129,7 @@ if (  -e $short_input1 or -e $short_input2  ){
         if($ngs_coverage<=0){die "\nError: -avgs $ngs_coverage NGS coverage is wrong, please check\n";}
 	if($thread < 1  ){die "\nError: -t $thread \n";}
 #if ( -d $tmp ){system ("rm -r tmp ")};
+if (  -e "$output_dir"){ die "Error::cannot create directory, '$output_dir' already exists, Exit !";}else {system("mkdir -p $output_dir" );}
 my $current_dir_path=abs_path("./");
 my $output_dir_path=abs_path($output_dir);
 
