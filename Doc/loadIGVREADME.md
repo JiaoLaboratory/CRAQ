@@ -15,7 +15,7 @@ $ cd CRAQ/Example && bash run_example.sh
 ###download Integrative Genomics Viewer (IGV) from here: https://software.broadinstitute.org/software/igv/download ###   
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/89bfca08-7d5d-4d2a-9153-31980d6b105f)  
 
-#![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/06b8482d-81f0-4f9c-8558-8fabda7b48a3)
+!![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/06b8482d-81f0-4f9c-8558-8fabda7b48a3)
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/e6caa9ce-af6d-455a-b53d-7ee1cd9d27aa)
 
 
