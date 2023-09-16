@@ -1,7 +1,7 @@
 # Step-by-step visually instructions  
 ## Quick start using the test data
 ```
-$ cd CRAQ/Example && bash run_example.sh
+$ cd CRAQ/Example  && bash run_example.sh
 ```                           
  ###After running CRAQ you will get the following results under the Output dictionary ####    
 
