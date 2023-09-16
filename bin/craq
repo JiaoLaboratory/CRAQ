@@ -222,9 +222,9 @@ system("bash $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map -z $genom
 
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI_SMS.sh -g  $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size  -C LRout/LR_putative.SE.SH -D LRout/LR_sort.depth  -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -b $break -y $plot -x $your_chrid \n";
+print "CMD: $bin_path/../src/runAQI_SMS.sh -g  $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size  -C LRout/LR_putative.SE.SH -D LRout/LR_sort.depth  -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window   -j $gapmodel -b $break -y $plot -x $your_chrid \n";
 
-system("bash $bin_path/../src/runAQI_SMS.sh -g $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size   -C LRout/LR_putative.SE.SH -D LRout/LR_sort.depth -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -b $break -y $plot -x $your_chrid ");
+system("bash $bin_path/../src/runAQI_SMS.sh -g $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size   -C LRout/LR_putative.SE.SH -D LRout/LR_sort.depth -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -j $gapmodel -b $break -y $plot -x $your_chrid ");
 }
 
 if (  -f $short_input1 or -f $short_input2  ){
@@ -255,9 +255,9 @@ print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_b
 system("bash $bin_path/../src/runSR.sh -g  $genome_seq_basename  -z $genome_size_basename  -1  $short_input1_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI_NGS.sh -g  $genome_seq_basename  -z $genome_size_basename   -e SRout/SR_eff.size  -c SRout/SR_putative.RE.RH  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize  -j $gapmodel -u $error_region -y $plot -x $your_chrid  \n";
+print "CMD: $bin_path/../src/runAQI_NGS.sh -g  $genome_seq_basename  -z $genome_size_basename   -e SRout/SR_eff.size  -c SRout/SR_putative.RE.RH  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right  -n $min_gap_size -s $norm_window -w $regional_window   -j $gapmodel -u $error_region -y $plot -x $your_chrid  \n";
 
-system("bash $bin_path/../src/runAQI_NGS.sh -g $genome_seq_basename  -z $genome_size_basename   -e SRout/SR_eff.size  -c SRout/SR_putative.RE.RH  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right   -n $min_gap_size -s $norm_window -w $regional_window  -m $mincontigsize -j $gapmodel -u $error_region -y $plot -x $your_chrid ");
+system("bash $bin_path/../src/runAQI_NGS.sh -g $genome_seq_basename  -z $genome_size_basename   -e SRout/SR_eff.size  -c SRout/SR_putative.RE.RH  -d SRout/SR_sort.depth  -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right   -n $min_gap_size -s $norm_window -w $regional_window  -j $gapmodel -u $error_region -y $plot -x $your_chrid ");
 }}
 
 __END__
