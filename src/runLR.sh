@@ -11,7 +11,7 @@ LRavg_depth=100
 max_depratio=0.05
 mapquality=20
 next_clip_dis=50000
-x="map-pb";
+x="map-hifi";
 t=5
 
 
@@ -102,7 +102,7 @@ if [[ "$inquery_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 
      input_bam=$inquery
      echo -e "[M::worker_pipeline:: Filtering bamfiles]"
-     samtools view -h -q $mapquality -F 1796 -@ $t $input_bam |  perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
+     samtools view -h -q $mapquality -F 1796 -@ $t $input_bam |  perl $src/lrsam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
      samtools index LRout/$LRname"_sort.bam"
      fi
 
@@ -129,7 +129,7 @@ if [[ "$inquery_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 	 rm  LRout/tmp_bam/*_sort.bam*
        	 input_bam="LRout/tmp_bam/tmp_lr_merge.bam"
        	 echo -e "[M::worker_pipeline:: Filtering bamfiles]"
-         samtools view -h -q $mapquality -F 1796  $input_bam -@ $t | perl $src/sam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
+         samtools view -h -q $mapquality -F 1796  $input_bam -@ $t | perl $src/lrsam_cigar_filter.pl - | samtools view -h -S -b -@ $t -  -o LRout/$LRname"_sort.bam"
          samtools index LRout/$LRname"_sort.bam"
 	rm -r LRout/tmp_bam/
      fi	 
@@ -140,27 +140,34 @@ if [[ "$inquery_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 fi
 
 
-echo -e "[M::worker_pipeline:: Get SMS mapping coverage]"
-	samtools depth -a  LRout/$LRname"_sort.bam"  > LRout/$LRname"_sort.depth" 
-echo -e "[M::worker_pipeline:: Compute effective coverage]"
-perl $src/LReffect_size.pl LRout/$LRname"_sort.depth" $LRavg_depth $max_depratio >LRout/$LRname"_eff.size"
+echo -e "[M::worker_pipeline:: Compute effective SMS coverage]"
+	#samtools depth -a  LRout/$LRname"_sort.bam"  > LRout/$LRname"_sort.depth" 
+	samtools view -h  LRout/$LRname"_sort.bam" -@ $t |perl $src/depthnorm.pl - |samtools depth -a - >LRout/$LRname"_sort.depth"
+	perl $src/LReffect_size.pl LRout/$LRname"_sort.depth" $LRavg_depth $max_depratio >LRout/$LRname"_eff.size"
 
 echo -e "[M::worker_pipeline:: Extract SMS clipping signal]"
 samtools view  LRout/$LRname"_sort.bam"  -@ $t |   perl   $src/caculate_breakpoint_depth.pl    -  > LRout/$LRname"_clipped.cov"
 
 echo -e "[M::worker_pipeline:: Collect potential CSE|H]"
 	perl -alne  'print if($F[3]>='$minclip_num')' LRout/$LRname"_clipped.cov" >LRout/$LRname"_clipped.cov.tmp"
+	
+	if [ "$x" != "map-ont" ] ; then
 	perl   $src/synthesize_LRbkdep_and_alldep_theory1.pl LRout/$LRname"_clipped.cov.tmp"  LRout/$LRname"_sort.depth"  >LRout/$LRname"_clip.coverRate"
+	fi
+	if [ "$x" == "map-ont" ] ; then
+        perl   $src/synthesize_LRbkdep_and_alldep.pl LRout/$LRname"_clipped.cov.tmp"  LRout/$LRname"_sort.depth"  >LRout/$LRname"_clip.coverRate"
+        fi
+
 	perl -alne  'print if($F[4]< 2*'$LRavg_depth' && $F[3]>='$minclip_num' && $F[3]/$F[4]>'$lhe_cutoff_left')' LRout/$LRname"_clip.coverRate" >LRout/$LRname"_clip.coverRate.filter"
 
 #get putative.HR
 	perl -alne 'print if($F[3]/$F[4]<='$lhe_cutoff_right'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.SH"
-        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.SH" $next_clip_dis >LRout/$LRname"_putative.SH.tmp"
+        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.SH" 50000 >LRout/$LRname"_putative.SH.tmp"
         perl -alne  'print if($F[5]>0.5)' LRout/$LRname"_putative.SH.tmp" |cut  -f -5 >LRout/$LRname"_putative.SH"
 
 #get putative.ER
         perl -alne 'print if($F[3]/$F[4]>='$lrbk_cutoff'  )' LRout/$LRname"_clip.coverRate.filter" >LRout/$LRname"_clip.coverRate.filter.SE"
-        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.SE" $next_clip_dis >LRout/$LRname"_putative.SE.tmp"
+        perl $src/LER_softclip_filter.pl LRout/$LRname"_clipped.cov"  LRout/$LRname"_clip.coverRate.filter.SE" 50000 >LRout/$LRname"_putative.SE.tmp"
         perl -alne  'print if($F[5]<0.1)' LRout/$LRname"_putative.SE.tmp" |cut  -f -5 > LRout/$LRname"_putative.SE"
 
 cat LRout/$LRname"_putative.SE" LRout/$LRname"_putative.SH" >LRout/$LRname"_putative.SE.SH"

@@ -1,17 +1,8 @@
-open IN0,$ARGV[0];
-while (<IN0>){
-chomp;
-my ($chr,$loc,$ngsdep0)=(split/\s+/)[0,1,2];
-$hashngs{$chr}{$loc}=0;
-}
-
-
-open IN1,$ARGV[1];
+open IN1,$ARGV[0];
 my $dis=3;
 while (<IN1>){
 chomp;
 my ($chr,$loc,$depth)=(split/\s+/)[0,1,2];
-next if(not defined $hashngs{$chr}{$loc} );
 #next if($depth >0);
 for my$i(0..$dis){
 my $loc_new=$loc+$i;

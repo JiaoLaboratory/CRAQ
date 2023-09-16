@@ -15,7 +15,7 @@ srbk_cutoff=0.75
 she_cutoff_left=0.4
 she_cutoff_right=0.6
 
-lrbk_cutoff=0.65
+lrbk_cutoff=0.75
 lhe_cutoff_left=0.4
 lhe_cutoff_right=0.6
 
@@ -190,7 +190,7 @@ cat runAQI_out/locER_out/$name"_final.SHR.out"  runAQI_out/strER_out/$name"_fina
 
 if [ "$search_cluster" == "T" ] ; then
 echo -e "[M::worker_pipeline:: Search noisy error region]"
-perl $src/get_nonmap_region.pl SRout/Nonmap.loc > runAQI_out/SRNonmap.loc.bed
+perl $src/get_nonmap_region.pl SRout/Nonmap.loc SRout/Nonmap.loc > runAQI_out/SRNonmap.loc.bed
 perl $src/search_ER_region.pl runAQI_out/SRNonmap.loc.bed runAQI_out/tmp_merged.loc.str.ER >runAQI_out/tmp.ER.region
 grep 'SER' runAQI_out/tmp.ER.region | perl -alne  'print "$F[0]\t$F[1]\t$F[2]\t$F[3]\tCRE"' - >runAQI_out/locER_out/out_final.CRE.bed
 grep 'LER' runAQI_out/tmp.ER.region | perl -alne  'print "$F[0]\t$F[1]\t$F[2]\t$F[3]\tCSE"' - >runAQI_out/strER_out/out_final.CSE.bed
@@ -227,7 +227,7 @@ perl $src/final_short_report_minlen.pl runAQI_out/seq.H.stat  0.85 $report_minct
 perl $src/merge_final_short_report.pl runAQI_out/$name"_final.HR.Report.tmp" runAQI_out/$name"_final.ER.Report.tmp" >runAQI_out/$name"_final.Report.tmp"
 
 cat $SR_coverRate $LR_coverRate runAQI_out/Gap_out/$name"_gap.out" > runAQI_out/all_putative_and_gapN.tmp
-perl $src/get_nonmap_region.pl LRout/Nonmap.loc |  perl $src/search_uncertain_region.pl - runAQI_out/all_putative_and_gapN.tmp  >runAQI_out/low_confidence.bed
+perl $src/get_nonmap_region.pl SRout/Nonmap.loc LRout/Nonmap.loc |  perl $src/search_uncertain_region.pl - runAQI_out/all_putative_and_gapN.tmp  >runAQI_out/low_confidence.bed
 perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/low_confidence.bed runAQI_out/$name"_final.Report.tmp" >runAQI_out/$name"_final.Report"
 
 mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN

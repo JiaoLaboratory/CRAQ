@@ -1,23 +1,10 @@
 #!/usr/bin/perl
 #use Math::Complex;
 #use Data::Dumper;
-if (@ARGV != 3){print "USE: the final step to get the report \nperl $0  result_file rate[0.8] minctglen\n";
+if (@ARGV != 3){print "USE: the final step to get the report \nperl $0  result_file rate[0.85] minctglen\n";
 exit 1;
 }else{
 my ($result_file,$rate,$minlen)=($ARGV[0],$ARGV[1],$ARGV[2]);
-open NAME,$result_file;
-while (<NAME>){chomp;next if/^#/;
-my ($chr,$ctgsize)=(split/\s+/)[0,1]; push @all_len,$ctgsize;
-$sum=$sum+$ctgsize;}
-
-    for my $ctgsize(sort {$b <=> $a} @all_len){
-     $total=$total+$ctgsize;# print "$total\t$ctgsize\n";
-    if ($total >= $sum*$rate){$Nrate=$ctgsize; last}
-  }
-
-if ($Nrate >= $minlen){$minlen = $minlen;}
-if ($Nrate < $minlen){$minlen = 0.1*$minlen;}
-
 open NAME,$result_file;
 while (<NAME>){chomp;
 next if/^#/;

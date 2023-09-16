@@ -111,7 +111,7 @@ cp runAQI_out/locER_out/$name"_final.SHR.out.tmp" runAQI_out/locER_out/$name"_fi
 cat runAQI_out/locER_out/$name"_final.SER.out"   >runAQI_out/tmp_merged.loc.str.ER
 cat runAQI_out/locER_out/$name"_final.SHR.out"   >runAQI_out/tmp_merged.loc.str.HR
 
-perl $src/get_nonmap_region.pl SRout/Nonmap.loc >runAQI_out/SRNonmap.loc.bed
+perl $src/get_nonmap_region.pl SRout/Nonmap.loc SRout/Nonmap.loc >runAQI_out/SRNonmap.loc.bed
 
 if [ "$search_cluster" == "T" ] ; then
 echo -e "[M::worker_pipeline:: Search noisy region]"

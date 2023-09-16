@@ -93,7 +93,7 @@ if [[ "$query_1_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
 
 	        input_bam=$query_1
 		echo -e "Skipping alignment::\n[M::worker_pipeline:: Filtering bamfiles]"
-	samtools view -h -q $mapquality -F 1796  $input_bam  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -S -b -@ $t -  -o SRout/$SRname"_sort.bam"
+	samtools view -h  -F 1796  $input_bam  -t $t | perl $src/srsam_cigar_filter.pl $mapquality - | samtools view -h -S -b -@ $t -  -o SRout/$SRname"_sort.bam"
 		samtools index SRout/$SRname"_sort.bam"
 	fi
 	
@@ -115,7 +115,8 @@ if [[ "$query_1_tmp" =~ (fa$)|(fq$)|(fasta$)|(fastq$)|(fa.gz$)|(fq.gz$)|(fasta.g
                 fi
 
 	        echo -e "worker_pipeline:: NGS reads aligning and filtering"
-		minimap2 -ax sr -R "@RG\tID:foo\tSM:bar1\tLB:lib" $ref_fa  $query_1 $query_2  -t $t | perl -alne 'print unless($F[5]=~/^\d+[HS]/ && $F[5]=~/[HS]$/)' - | samtools view -h -q $mapquality -F 1796 -S -b -@ $t -  -o SRout/$SRname"_unsort.bam"
+                minimap2 -ax sr -R "@RG\tID:foo\tSM:bar1\tLB:lib" $ref_fa  $query_1 $query_2  -t $t | perl  $src/srsam_cigar_filter.pl $mapquality -  | samtools view -h -F 1796 -S -b -@ $t -  -o SRout/$SRname"_unsort.bam"
+
 		echo -e "[M::worker_pipeline:: Sort bamfiles]"
       		samtools sort SRout/$SRname"_unsort.bam"   -@ $t -o SRout/$SRname"_sort.bam" 
       		rm SRout/$SRname"_unsort.bam" && samtools index SRout/$SRname"_sort.bam" 
@@ -125,18 +126,18 @@ else
      exit 1
 fi
 #echo -e "\n##########################################################################################\n"
-echo -e "[M::worker_pipeline:: Get NGS mapping coverage]"
+echo -e "[M::worker_pipeline:: Compute effective NGS coverage]"
 #-------------------------------------------------------------------------------------------------------------
-samtools depth -a  SRout/$SRname"_sort.bam"  > SRout/$SRname"_sort.depth" 
+#samtools depth -a  SRout/$SRname"_sort.bam"  > SRout/$SRname"_sort.depth" 
+samtools view -h -@ $t -q $mapquality SRout/$SRname"_sort.bam" |samtools depth -a - >SRout/$SRname"_sort.depth"
 
-echo -e "[M::worker_pipeline:: Compute effective coverage]"
 perl $src/SReffect_size.pl SRout/$SRname"_sort.depth" >SRout/$SRname"_eff.size"
 #echo -e "\n##########################################################################################\n"
 #echo -e "[M::worker_pipeline:: Get clipping cover rate]"
 #-------------------------------------------------------------------------------------------------------------
 if (($minclip_num >=1)); then
      echo -e "[M::worker_pipeline:: Collect potential CRE|H]"
-        samtools view -@ $t SRout/$SRname"_sort.bam" |   perl   $src/caculate_breakpoint_depth.pl    -  > SRout/$SRname"_clipped.cov"
+        samtools view -@ $t -q $mapquality SRout/$SRname"_sort.bam" | perl $src/caculate_breakpoint_depth.pl -  > SRout/$SRname"_clipped.cov"
         perl -alne  'print if($F[3]>='$minclip_num')' SRout/$SRname"_clipped.cov" >SRout/$SRname"_clipped.cov.tmp"
 	perl   $src/synthesize_SRbkdep_and_alldep.pl  SRout/$SRname"_clipped.cov.tmp" SRout/$SRname"_sort.depth" >SRout/$SRname"_clip.coverRate" 
         perl -alne  'print if($F[3]>='$minclip_num' && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$she_cutoff_left')' SRout/$SRname"_clip.coverRate" > SRout/$SRname"_clip.coverRate.tmp"
@@ -152,7 +153,7 @@ fi
 if (($minclip_num == 0)); then
      echo -e "[M::worker_pipeline:: Collect potential CRE|RH]"
 #######start extract clipped reads
-     samtools view -@ $t SRout/$SRname"_sort.bam" |   perl   $src/caculate_breakpoint_depth.pl    -  > SRout/$SRname"_clipped.cov"
+     samtools view -@ $t -q $mapquality SRout/$SRname"_sort.bam" | perl $src/caculate_breakpoint_depth.pl  -  > SRout/$SRname"_clipped.cov"
      perl -alne  'print if($F[3]>=2)' SRout/$SRname"_clipped.cov" >SRout/$SRname"_clipped.cov.tmp"
      perl   $src/synthesize_SRbkdep_and_alldep.pl  SRout/$SRname"_clipped.cov.tmp" SRout/$SRname"_sort.depth" >SRout/$SRname"_clip.coverRate"
      perl -alne  'print if($F[3]>=2 && $F[4]>=1 && $F[4] < 2*'$SRavg_depth' && $F[3]/$F[4] >'$she_cutoff_left' )' SRout/$SRname"_clip.coverRate" >SRout/$SRname"_putative.RE.bk.tmp"
