@@ -122,7 +122,7 @@ mkdir -p runAQI_out/Gap_out  runAQI_out/locER_out  runAQI_out/strER_out
 perl $src/getGap.pl  $ref_fa | perl $src/gap_filter.pl - $ref_fa_size $min_gap_len  >runAQI_out/Gap_out/$name"_gap.out"
 
 echo -e "[M::worker_pipeline:: Filter putative CRE]"
-perl $src/get_ER.pl $LR_normdep  $SR_coverRate  10 20 $skewned_rate  >runAQI_out/locER_out/$name"_lrfilter.out"
+perl $src/get_ER.pl $LR_normdep  $SR_coverRate  5 40 $skewned_rate  >runAQI_out/locER_out/$name"_lrfilter.out"
 perl -alne '$ratio=($F[3]/$F[4]);print if($ratio > '$srbk_cutoff')' runAQI_out/locER_out/$name"_lrfilter.out"  >runAQI_out/locER_out/$name"_lrfilter_CRE.out"
 perl -alne ' $ratio=($F[3]/$F[4]); print if( $ratio <= '$she_cutoff_right' && $ratio >= '$she_cutoff_left'  )' runAQI_out/locER_out/$name"_lrfilter.out"  >runAQI_out/locER_out/$name"_lrfilter_CRH.out"
 

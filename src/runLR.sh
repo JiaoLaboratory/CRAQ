@@ -151,8 +151,8 @@ samtools view  LRout/$LRname"_sort.bam"  -@ $t |   perl   $src/caculate_breakpoi
 echo -e "[M::worker_pipeline:: Collect potential CSE|H]"
 	perl -alne  'print if($F[3]>='$minclip_num')' LRout/$LRname"_clipped.cov" >LRout/$LRname"_clipped.cov.tmp"
 	
-	perl   $src/synthesize_LRbkdep_and_alldep_theory1.pl LRout/$LRname"_clipped.cov.tmp"  LRout/$LRname"_sort.depth"  >LRout/$LRname"_clip.coverRate"
-	
+	perl   $src/synthesize_LRbkdep_and_alldep.pl LRout/$LRname"_clipped.cov.tmp"   LRout/$LRname"_sort.depth" $x >LRout/$LRname"_clip.coverRate"
+
 	perl -alne  'print if($F[4]< 2*'$LRavg_depth' && $F[3]>='$minclip_num' && $F[3]/$F[4]>'$lhe_cutoff_left')' LRout/$LRname"_clip.coverRate" >LRout/$LRname"_clip.coverRate.filter"
 
 #get putative.HR

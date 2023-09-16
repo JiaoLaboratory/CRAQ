@@ -1,9 +1,9 @@
 #!/usr/bin/perl
 #use Data::Dumper;
-if (@ARGV != 2){print "USE: $0 LR_break.depth LR_sort.depth\n";
+if (@ARGV != 3){print "USE: $0 LR_break.depth LR_sort.depth map\n";
 exit 1;
 }else{
-
+my $map=$ARGV[2];
 my ($LR_breakdepth,$pb_ont_depfile)=($ARGV[0],$ARGV[1]);
 
 open LR_break,$LR_breakdepth;
@@ -37,13 +37,16 @@ if($chr_now ne $chr_former ) {
       push @left,$dep{$chr}{$bkleft};
       push @right,$dep{$chr}{$bkright}; }
      my $leftavg= avg  (@left) ; 
-     my $leftavg=int($leftavg)+1;
+     my $leftavg=int($leftavg)+0.1;
      my $rightavg=avg (@right) ;
-    my $rightavg= int($rightavg)+1;
+    my $rightavg= int($rightavg)+0.1;
 #  print "$chr\t$pos\t@left===============@right\n";
 #  print "left:$leftavg\tright:$rightavg\n";
-     if($stran eq "+") {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
-     if($stran eq "-") {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
+     if($stran eq "-" && $map ne "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
+     if($stran eq "+" && $map ne "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
+     if($stran eq "-" && $map eq "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
+     if($stran eq "+" && $map eq "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
+
                       }
   }
  %dep=();
@@ -68,12 +71,15 @@ if($chr_now ne $chr_former ) {
       push @left,$dep{$chr}{$bkleft};
       push @right,$dep{$chr}{$bkright}; }
      my $leftavg= avg  (@left) ;
-     my $leftavg=int($leftavg)+1;
+     my $leftavg=int($leftavg)+0.1;
      my $rightavg=avg (@right) ;
-     my $rightavg= int($rightavg)+1; 
+     my $rightavg= int($rightavg)+0.1; 
+     
+     if($stran eq "-" && $map ne "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
+     if($stran eq "+" && $map ne "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
+     if($stran eq "-" && $map eq "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
+     if($stran eq "+" && $map eq "map-ont" ) {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
 
-     if($stran eq "+") {  print "$chr\t$pos\t$stran\t$bkdep\t$rightavg\n"}
-     if($stran eq "-") {  print "$chr\t$pos\t$stran\t$bkdep\t$leftavg\n"}
                     
                       }
   }
