@@ -31,7 +31,6 @@ my $ngs_coverage=100;
 my $map="map-hifi";
 my $mapq=20;
 my $thread=10;
-my $next_clip_dis=50000;
 my $plot="F";
 my $your_chrid;
 my $output_dir="output";
@@ -176,8 +175,8 @@ if (  -f $long_input ){
         chdir($output_dir_path) or die "$!";
 	
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
-print "CMD: $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map  -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d $next_clip_dis -t $thread \n";
-system("bash $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d $next_clip_dis -t $thread " );
+print "CMD: $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map  -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d 50000 -t $thread \n";
+system("bash $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d 50000 -t $thread " );
 	chdir($current_dir_path) or die "$!";
 
 
@@ -218,8 +217,8 @@ system("ln -s $long_input_path $output_dir_path");
 chdir($output_dir_path) or die "$!";
 
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
-print "CMD: $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map  -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left  -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d $next_clip_dis -t $thread \n";
-system("bash $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map -z $genome_size_basename  -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left  -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d $next_clip_dis -t $thread " );
+print "CMD: $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map  -z $genome_size_basename -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left  -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d 50000 -t $thread \n";
+system("bash $bin_path/../src/runLR.sh -g $genome_seq_basename -x $map -z $genome_size_basename  -1 $long_input_basename -q $mapq -m $min_sms_clip_num -f $he_cutoff_left  -h $he_cutoff_right -r $sms_clip_coverRate -a $sms_coverage -d 50000 -t $thread " );
 
 
 print "\nRunning CRAQ benchmark analysis ......\n";
