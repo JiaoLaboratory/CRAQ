@@ -14,7 +14,8 @@ $ cd CRAQ/Example  && bash run_example.sh
 ## How to inspect CRAQ output in IGV? 
 ###download Integrative Genomics Viewer (IGV) from here: https://software.broadinstitute.org/software/igv/download ###   
 ![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/89bfca08-7d5d-4d2a-9153-31980d6b105f)  
-![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/e6caa9ce-af6d-455a-b53d-7ee1cd9d27aa)
+![image](https://github.com/JiaoLaboratory/CRAQ/assets/65637958/33488400-440f-4641-9da2-96b107eeb749)
+
 
 
 
