@@ -19,7 +19,7 @@ my $he_cutoff_left=0.4;
 my $he_cutoff_right=0.6;
 
 my $gapmodel=1;
-#my $mincontigsize=1000000; 
+
 my $break="F";
 #my $norm_window=50000;
 my $regional_window=1000000; 
