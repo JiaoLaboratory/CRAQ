@@ -49,7 +49,7 @@ if($chr_now eq $chr_former) {$dep{$chr_now}{$pos_now}=$depth_now; }
 #  print "$chr\t$pos\t@left===============@right\n";
 #  print "left:$leftavg\tright:$rightavg\n";
      if($leftavg <= 5 and  $rightavg<=5) {  
-	if($leftavg < $threshold*$threshold*$rightavg or $rightavg <$leftavg*$threshold*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
+	if($leftavg <= $threshold*$threshold*$rightavg or $rightavg <=$leftavg*$threshold*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
      if($leftavg >5 or $rightavg>5){
          if($leftavg < $threshold*$rightavg or $rightavg <$leftavg*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
                     } 
@@ -88,7 +88,7 @@ if($chr_now eq $chr_former) {$dep{$chr_now}{$pos_now}=$depth_now; }
     my $rightavg=avg (@right) ;
 
      if($leftavg <= 5 and  $rightavg<=5) {  
-	if($leftavg < $threshold*$threshold*$rightavg or $rightavg <$leftavg*$threshold*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
+	if($leftavg <= $threshold*$threshold*$rightavg or $rightavg <= $leftavg*$threshold*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
      if($leftavg >5 or $rightavg>5){
          if($leftavg < $threshold*$rightavg or $rightavg <$leftavg*$threshold){$line=~s/===/\t/g; print "$line\n";last}}
 
