@@ -107,7 +107,7 @@ Genome Browsers as Integrative Genomics Viewer (IGV) can be used for visually in
 ### Parallel running to speed up
 Reads mapping is currently the most time-consuming step of CRAQ, especially for long reads mapping. Users can run the core CRAQ programs separately to increase speed. Details here: https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/steprunREADME.md  
 ### Running with NGS or long SMS data only
-If the users only have NGS data or SMS long read dta, CRAQ could just take one of these datasets at the expense of some reliability or informativity.
+If the users only have NGS data or SMS long read data, CRAQ could just take one of these datasets at the expense of some reliability or informativity.
 Run CRAQ with SMS long read data only:  
 ```
 $ craq  -g assembly.fa -sms SMS_sort.bam
