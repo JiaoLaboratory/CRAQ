@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/475870361.svg)](https://zenodo.org/badge/latestdoi/475870361)
+
 # CRAQ
 ### Pinpoint assembly errors for genomic assessing and correcting
 ![image](https://github.com/JiaoLaboratory/CRAQ/blob/main/Doc/Fig.png)
