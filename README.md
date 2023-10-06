@@ -15,7 +15,7 @@ Note that CRAQ is temporarily supported on Linux, and will be developed on OSX a
 
 1. SAMtools((1.3.1+)) library for accessing SAM/BAM files, available from SourceForge:
     SAMtools: http://sourceforge.net/projects/samtools/files/
-2. Minimap2 (2.1.7+) for reads mapping, available from SourceForge:
+2. Minimap2 (2.17+) for reads mapping, available from SourceForge:
     Minimap2: https://github.com/lh3/minimap2
 3. Perl (version >= 5)](https://www.perl.org/)
 Both SAMtools and Minimap2 are straightforward to install following the instructions on its website.
