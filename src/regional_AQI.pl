@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 #use Data::Dumper;
 
-if (@ARGV != 4){print "USE: this is a script to Calculate regional_QCR in a specific block !\n$0 chrsize_file  block_size step tmp_merged.loc.str.ER \n";exit 1;}
+if (@ARGV != 4){print "USE: this is a script to calculate regional_AQI in a specific block !\n$0 seq.size  block_size step_size merged_CRE_CSE.bed \n";exit 1;}
 else{
 
 my ($chrsize_file,$blocksize,$step,$feature_loc_file)=($ARGV[0],$ARGV[1],$ARGV[2],$ARGV[3]);
@@ -34,8 +34,8 @@ my ($feature_chr,$feature_s,$stype)=(split/\s+/,$feature_loc)[0,1,-1];
 		foreach  my $block(keys %chrhash){
 	my ($block_chr,$block_s,$block_e)=(split/\s+/,$block)[0,1,2];
     if($feature_s >= $block_s && $feature_s<$block_e ){
-      if($stype eq "SER"){	$hash{$chr}{$block}{"ER"}=$hash{$chr}{$block}{"ER"}+1;}
-      if($stype eq "LER"){	$hash{$chr}{$block}{"Misjuc"}=$hash{$chr}{$block}{"Misjuc"}+1;}
+      if($stype eq "SER" or $stype eq "CRE"){	$hash{$chr}{$block}{"ER"}=$hash{$chr}{$block}{"ER"}+1;}
+      if($stype eq "LER" or $stype eq "CSE"){	$hash{$chr}{$block}{"Misjuc"}=$hash{$chr}{$block}{"Misjuc"}+1;}
 		
  }
     }
