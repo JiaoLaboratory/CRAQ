@@ -12,7 +12,7 @@ max_depratio=0.05
 mapquality=20
 minindel=40
 next_clip_dis=50000
-x="map-pb";
+x="map-hifi";
 t=5
 report_SNV="F"
 
@@ -27,7 +27,7 @@ do
 done
 
 
-Usage="\nUsage:\n\t$pipline -g  Genome.fa -z  Genome.fa.size -1 SMS_sorted.bam -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff \nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-pb -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff -n max_depratio"
+Usage="\nUsage:\n\t$pipline -g  Genome.fa -z  Genome.fa.size -1 SMS_sorted.bam -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff \nor\t$pipline -g  Genome.fasta -z  Genome.fasta.size -1 SMS.fa.gz -x map-hifi -m minclip_num -q mapq -f lhe_cutoff_left -h lhe_cutoff_right -r lrbk_cutoff -n max_depratio"
 
 while getopts "a:g:x:z:1:d:m:q:f:h:d:r:t:v:" opt
 do
