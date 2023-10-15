@@ -299,7 +299,7 @@ __END__
 	--map|-x			Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
 	--mapq|-q			Minimum reads mapping quality. Default: 20
 	--norm_window|-nw               Window size for normalizing error count. Default: 0.0001*(total size)
-	--regional_window|-rw		Regional quality benchmarking for ploting. Default:500000
+	--regional_window|-rw		Regional quality benchmarking. Default:500000
 	--plot|-pl			Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
 	--plot_ids|-ids			An file including selected assembly IDs for plotting. Default use all IDs.		             
         --thread|-t			The number of thread used in alignment. Default: 10.
