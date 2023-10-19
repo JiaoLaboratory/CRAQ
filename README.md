@@ -66,7 +66,7 @@ $ craq -h
       ***Other parameters
             --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" 
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
-            --regional_window|-rw           Regional quality benchmarking. Default: 50000
+            --regional_window|-rw           Regional quality benchmarking. Default: 500000
             --break|-b                      Break chimera fragment. Default: F
             --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
             --mapq|-q                       Minimum reads mapping quality. Default: 20
