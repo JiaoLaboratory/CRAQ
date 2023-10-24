@@ -46,7 +46,7 @@ def draw_circos(genome_size,genome_error_loc,genome_score,scaffolds_ids,output):
     arcdata_dict = collections.defaultdict(dict)
     with open(genome_error_loc) as fr:
         for line in fr:
-            if 'LER' or 'CSE' in line:
+            if 'LER' in line or 'CSE' in line:
                 line = line.strip().split()
                 name = line[0]
                 start = int(line[1]) - max(length_list) / 1000
@@ -73,7 +73,7 @@ def draw_circos(genome_size,genome_error_loc,genome_score,scaffolds_ids,output):
     arcdata_dict = collections.defaultdict(dict)
     with open(genome_error_loc) as fr:
         for line in fr:
-            if 'SER' or 'CRE' in line:
+            if 'SER' in line or 'CRE' in line:
                 line = line.strip().split()
                 name = line[0]
                 start = int(line[1]) - max(length_list)/2000
