@@ -203,7 +203,7 @@ mv LRout/out_final_indel.het runAQI_out/locER_out/
 fi
 
 
-
+mv runAQI_out/low_confidence.bed runAQI_out/strER_out/out_low_coverage.bed
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp*  runAQI_out/strER_out/*_putative* runAQI_out/*_gapN.tmp runAQI_out/locER_out/out_final*out 
 
 rm  runAQI_out/tmp_merged* runAQI_out/*stat LRout/*tmp*
