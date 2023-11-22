@@ -250,7 +250,7 @@ if [ "$report_SNV" == "T" ] ; then
 mv LRout/out_final_indel.err runAQI_out/locER_out/
 mv LRout/out_final_indel.het runAQI_out/locER_out/
 fi
-
+mv runAQI_out/low_confidence.bed runAQI_out/strER_out/out_low_coverage.bed
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp* runAQI_out/locER_out/out_lrfilter.out runAQI_out/*gapN.tmp runAQI_out/tmp_merged* LRout/*tmp*
 rm   runAQI_out/*stat  
 
