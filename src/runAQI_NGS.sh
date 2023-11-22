@@ -173,7 +173,7 @@ cat  $SR_coverRate runAQI_out/Gap_out/$name"_gap.out" > runAQI_out/all_putative_
 perl $src/search_uncertain_region.pl runAQI_out/SRNonmap.loc.bed runAQI_out/all_putative_and_gapN.tmp  >runAQI_out/low_confidence.bed
 perl $src/intergrate_uncertain.pl $ref_fa_size runAQI_out/low_confidence.bed runAQI_out/$name"_final.Report.tmp" >runAQI_out/$name"_final.Report"
 
-mv runAQI_out/Gap_out/* runAQI_out/tmp_sequence.gapN 
+mv runAQI_out/Gap_out/*  runAQI_out/tmp_sequence.gapN 
 perl -alne  'print if( $F[3]>2 && ($F[3]/$F[4])> '$she_cutoff_right' && ($F[3]/$F[4])< '$srbk_cutoff')' SRout/SR_clip.coverRate >runAQI_out/locER_out/ambiguous.RE.RH
 mv runAQI_out/low_confidence.bed runAQI_out/locER_out/out_low_coverage.bed
 rm -rf  ER.tmp_N.stat HR.tmp_N.stat  runAQI_out/locER_out/tmp* runAQI_out/*Report.tmp  runAQI_out/Gap_out/ runAQI_out/tmp_seq* runAQI_out/locER_out/out_final.S*R.out runAQI_out/strER_out/out_final.L*R.out runAQI_out/strER_out/*tmp runAQI_out/locER_out/*tmp*  runAQI_out/strER_out/*_putative*  runAQI_out/*tmp
