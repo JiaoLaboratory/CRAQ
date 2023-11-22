@@ -88,7 +88,7 @@ locER/ambiguous.RE.RH : Coordinates of some ambiguous regions-maybe small-region
 strER_out/out_final.CSE.bed	: Exact coordinates of large structural breakage (CSEs).  
 strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
 strER_out/ambiguous.SE.SH : Coordinates of some ambiguous regions-maybe structural error or heterozygous variants (CSE|CSHs).  
-low_confidence.bed : low confident genomic regions at current parameter settings.  
+low_confidence.bed : low confident genomic regions with relatively low reads coverage at current parameter settings.  
 
 ./LRout/  
 LR_sort.bam	: Filtered SMS alignment file, for view inspection in genome browser.  
