@@ -65,7 +65,7 @@ $ craq -h
             --ngs_coverage|-avgs            Average NGS coverage. Default: 100
       ***Other parameters
             --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" 
-            --report_SNV|-snv               Report tiny Indel errors or heterozyous variants. Default: "F" (resource consuming)
+            --report_SNV|-snv               Report tiny SNV errors or heterozyous variants. Default: "F" (resource consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
             --regional_window|-rw           Regional quality benchmarking. Default: 500000
             --break|-b                      Break chimera fragment. Default: F
