@@ -86,8 +86,6 @@ out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).
 locER_out/out_final.CRE.bed	: Exact coordinates of regional errors (CREs).  
 locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous variants (CRHs).  
 locER/ambiguous.RE.RH : Coordinates of some ambiguous regions-maybe small-regional error or heterozygous indels (CRE|CRHs). 
-locER/out_final_indel.err : Coordinates of tiny SNV errors (if -snv T).  
-locER/out_final_indel.het : Coordinates of tiny heterozygous SNVs (if -snv T).  
 strER_out/out_final.CSE.bed	: Exact coordinates of large structural breakage (CSEs).  
 strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
 strER_out/ambiguous.SE.SH : Coordinates of some ambiguous regions-maybe structural error or heterozygous variants (CSE|CSHs).  
