@@ -84,10 +84,10 @@ out_regional.Report : Statistics for regional genomic metrics.
 out_circos.pdf : Drawing genomic metrics.  
 out_correct.fa : A CRAQ-corrected FASTA fragments generated (if --break|-b T).  
 locER_out/out_final.CRE.bed	: Exact coordinates of regional errors (CREs).  
-locER_out/out_final.CRH.bed     : Exact coordinates of regional heterozygous variants (CRHs).  
-locER/ambiguous.RE.RH : Coordinates of some ambiguous regions-maybe small-regional error or heterozygous indels (CRE|CRHs).  
+locER_out/out_final.CRH.bed : Exact coordinates of regional heterozygous variants (CRHs).  
 strER_out/out_final.CSE.bed	: Exact coordinates of large structural breakage (CSEs).  
 strER_out/out_final.CSH.bed	: Exact coordinates of structral heterozygous variants (CSHs).  
+locER/ambiguous.RE.RH : Coordinates of some ambiguous regions-maybe small-regional error or heterozygous indels (CRE|CRHs).  
 strER_out/ambiguous.SE.SH : Coordinates of some ambiguous regions-maybe structural error or heterozygous variants (CSE|CSHs).  
 strER_out/out_low_coverage.bed : low confident genomic regions with relatively low reads coverage at current parameter settings.  
 
