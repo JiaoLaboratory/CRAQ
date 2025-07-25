@@ -11,7 +11,7 @@ CRAQ (Clipping Reveals Assembly Quality) is a reference-free genome assembly eva
 ## Installation
 
 ### Requirements
-Note that CRAQ is temporarily supported on Linux, and will be developed on OSX and Windows in the future.
+Note that CRAQ is temporarily supported on Linux.
 
 1. SAMtools(1.3.1+) library for accessing SAM/BAM files, available from SourceForge:
     SAMtools: http://sourceforge.net/projects/samtools/files/
