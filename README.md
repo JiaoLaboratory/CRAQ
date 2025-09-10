@@ -63,7 +63,7 @@ $ craq -h
             --min_gap_size|-mgs             Gap[N] length greater than the threshold will be treated as breakage. Default: 10
       ***Other parameters
             --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" 
-            --report_SNV|-snv               Report tiny (<20bp) SNV errors or heterozyous variants. Default: "F" (resource consuming)
+            --report_SNV|-snv               Report tiny SNV errors or heterozyous variants. Default: "F" (resource consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
             --regional_window|-rw           Regional quality benchmarking. Default: 0.001*(total size)
             --break|-b                      Break chimera fragment. Default: F
