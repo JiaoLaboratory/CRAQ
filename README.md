@@ -63,13 +63,12 @@ $ craq -h
             --min_gap_size|-mgs             Gap[N] length greater than the threshold will be treated as breakage. Default: 10
       ***Other parameters
             --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" 
-            --report_SNV|-snv               Report tiny SNV errors or heterozyous variants. Default: "F" (resource consuming)
+            --report_SNV|-snv               Report tiny (<20bp) SNV errors or heterozyous variants. Default: "F" (resource consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
             --regional_window|-rw           Regional quality benchmarking. Default: 0.001*(total size)
             --break|-b                      Break chimera fragment. Default: F
             --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
             --mapq|-q                       Minimum reads mapping quality. Default: 20
-            --norm_window|-nw               Window size for normalizing error count. Default: 0.0001*(total size)
             --plot|-pl                      Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
             --plot_ids|-ids                 An file including selected assembly IDs for plotting. Default use all IDs.                       
             --thread|-t                     The number of thread used in alignment. Default: 10
