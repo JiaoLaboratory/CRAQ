@@ -21,7 +21,7 @@ my $he_cutoff_right=0.6;
 my $gapmodel=1;
 my $break="F";
 #my $norm_window=50000;
-my $regional_window=500000; 
+#my $regional_window=500000; 
 my $model;
 my $error_region="T";
 my $report_SNV="F";
@@ -36,7 +36,7 @@ my $plot="F";
 my $your_chrid;
 my $output_dir="output";
 
-my $msg            = "\nCRAQ Version: 1.0.9-alpha \n\nPlease provide appropriate parameters!\n\nUsage:\t $0  -g  genome_seq -sms lr_sort.bam -ngs  sr_sort.bam\n or\t $0  -g  genome_seq -sms lr.fq.gz -ngs sr_pair1_fq.gz,sr_pair2_fq.gz \n";
+my $msg            = "\nCRAQ Version: 1.10 \n\nPlease provide appropriate parameters!\n\nUsage:\t $0  -g  genome_seq -sms lr_sort.bam -ngs  sr_sort.bam\n or\t $0  -g  genome_seq -sms lr.fq.gz -ngs sr_pair1_fq.gz,sr_pair2_fq.gz \n";
 my $usage="\nUsage:  perl $0 -g genome_seq -sms lr_sort.bam -ngs sr_sort.bam\nor\tperl $0 -g genome_seq -sms lr.fq.gz -ngs sr_pair1_fq.gz,sr_pair2_fq.gz\n\n";
 
 GetOptions(             'h|help'                      => \$help,
@@ -152,9 +152,8 @@ print "NGS clipping coverRate(-sf): $ngs_clip_coverRate\n";
 print "SMS clipping coverRate(-lf): $sms_clip_coverRate\n";
 print "Lower clipping rate for heterozygous allele(-hmin): $he_cutoff_left\n";
 print "Upper clipping rate for heterozygous allele(-hmax): $he_cutoff_right\n";
-print "Block score benchmarking (-rw): $regional_window\n";
 print "Gap[N] is treated with (-gm): $gapmodel:$model\n";
-print "Minimum gapsize(-mgs): $min_gap_size\n";
+print "Minimum gap[N]size(-mgs): $min_gap_size\n";
 print "Break chimera fragments (-b): $break\n";
 print "Search error region (-ser): $error_region\n";
 print "Mapping SMS reads use (-x): $map\n";
@@ -162,7 +161,10 @@ print "Mapping quality (-q): $mapq\n";
 if ( ! -f $your_chrid ){$your_chrid=$genome_size;   }
 if( -f $your_chrid){ $your_chrid = abs_path($your_chrid); }
 if (  $norm_window >0  ){$norm_window = $norm_window; print "Window size for error normalizing (-nw): $norm_window\n";}
-if (  $norm_window <=0 ){$norm_window = `perl $bin_path/../src/compute_norm_window.pl $genome_size`; print "Window size for error normalizing (-nw): $norm_window\n";}
+if (  $norm_window <=0 ){$norm_window = `perl $bin_path/../src/compute_norm_window.pl $genome_size`;}
+
+if (  $regional_window >0  ){$regional_window = $regional_window; print "Block score benchmarking (-rw): $regional_window\n";}
+if (  $regional_window <=0 ){$regional_window = 10*$norm_window; print "Block score benchmarking (-rw): $regional_window\n";}
 print "Plot CRAQ metrics (-pl): $plot\n";
 print "Alignment thread(-t): $thread\n";
 print "Current working at : $current_dir_path\n";
@@ -207,9 +209,9 @@ print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_b
 system("bash $bin_path/../src/runSR.sh -g  $genome_seq_basename  -z $genome_size_basename  -1  $short_input1_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread ");}
 
 print "\nRunning CRAQ benchmark analysis ......\n";
-print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size  -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window    -j $gapmodel -u $error_region -v $report_SNV -b $break -y $plot -x $your_chrid \n";
+print "CMD: $bin_path/../src/runAQI.sh -g  $genome_seq_basename -z $genome_size_basename -e LRout/LR_eff.size -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window -j $gapmodel -u $error_region -v $report_SNV -b $break -y $plot -x $your_chrid \n";
 
-system("bash $bin_path/../src/runAQI.sh -g $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size  -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window   -j $gapmodel -u $error_region -v $report_SNV -b $break -y $plot -x $your_chrid ");
+system("bash $bin_path/../src/runAQI.sh -g $genome_seq_basename  -z $genome_size_basename   -e LRout/LR_eff.size  -c SRout/SR_putative.RE.RH -C LRout/LR_putative.SE.SH -d SRout/SR_sort.depth -D LRout/LR_sort.depth -r $ngs_clip_coverRate -p $he_cutoff_left -q $he_cutoff_right -R $sms_clip_coverRate -P $he_cutoff_left -Q $he_cutoff_right -f $skewned_rate -n $min_gap_size -s $norm_window -w $regional_window -j $gapmodel -u $error_region -v $report_SNV -b $break -y $plot -x $your_chrid ");
 }}
 
 if (  -f $long_input && ! -f $short_input1 && ! -f $short_input2 ){
@@ -280,7 +282,7 @@ __END__
   ***Required parameters
         --genome|-g           		Assembly sequence file (.fa)
 	--sms_input|-sms      		SMS long-read alignment(.bam) or sequences(.fq.gz)
-        --ngs_input|-ngs      		NGS short-read alignment(.bam) or sequences(.fq.gz), separated with comma if paired
+        --ngs_input|-ngs      		NGS short-read alignment(.bam) or sequences(.fq.gz),separated with comma if paired.[Optional]
   ***Filter parameters
 	--min_ngs_clip_num|-sn		Minimum number of NGS clipped-reads. Default: 2
         --ngs_clip_coverRate|-sf	Minimum proportion of NGS clipped-reads. Default: 0.75
@@ -289,17 +291,14 @@ __END__
 	--he_min|-hmin			Lower clipping rate for heterozygous allele. Default: 0.4
 	--he_max|-hmax			Upper clipping rate for heterozygous allele. Default: 0.6
 	--min_gap_size|-mgs		Gap[N] length greater than the threshold will be treated as breakage. Default: 10
-	--sms_coverage|-avgl		Average SMS coverage. Default: 100
-	--ngs_coverage|-avgs		Average NGS coverage. Default: 100
   ***Other parameters
 	--error_region|-ser		Search noisy error region nearby an CSE breakpoint. Default: "T"
-	--report_SNV|-snv		Report tiny Indel errors or heterozyous variants (<40bp). Default: "F" (resource consuming) 
+	--report_SNV|-snv		Report tiny Indel errors or heterozyous variants (<20bp). Default: "F" (resource consuming) 
 	--gapmodel|-gm			Gap[N] is treated as 1:CRE 2:CSE. Default: 1
 	--break|-b			Break chimera fragment. Default: F
 	--map|-x			Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
 	--mapq|-q			Minimum reads mapping quality. Default: 20
-	--norm_window|-nw               Window size for normalizing error count. Default: 0.0001*(total size)
-	--regional_window|-rw		Regional quality benchmarking. Default:500000
+	--regional_window|-rw		Window size for regional quality benchmarking. 0.001*(total size)
 	--plot|-pl			Plotting CRAQ metrics. Default: F;  pycircos (python 3.7later) is required if "T"
 	--plot_ids|-ids			An file including selected assembly IDs for plotting. Default use all IDs.		             
         --thread|-t			The number of thread used in alignment. Default: 10
