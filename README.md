@@ -61,13 +61,11 @@ $ craq -h
             --he_min|-hmin                  Lower clipping rate for heterozygous allele. Default: 0.4
             --he_max|-hmax                  Upper clipping rate for heterozygous allele. Default: 0.6
             --min_gap_size|-mgs             Gap[N] length greater than the threshold will be treated as breakage. Default: 10
-            --sms_coverage|-avgl            Average SMS coverage. Default: 100
-            --ngs_coverage|-avgs            Average NGS coverage. Default: 100
       ***Other parameters
             --search_error|-ser             Search noisy error region nearby an CRE|CSE breakpoint. Default: "T" 
             --report_SNV|-snv               Report tiny SNV errors or heterozyous variants. Default: "F" (resource consuming)
             --gapmodel|-gm                  Gap[N] is treated as 1:CRE 2:CSE Default: 1
-            --regional_window|-rw           Regional quality benchmarking. Default: 500000
+            --regional_window|-rw           Regional quality benchmarking. Default: 0.001*(total size)
             --break|-b                      Break chimera fragment. Default: F
             --map|-x                        Mapping use map-pb/map-hifi/map-ont for PacBio CLR/HiFi or Nanopore vs reference [ignored if .bam provided]. Default: map-hifi
             --mapq|-q                       Minimum reads mapping quality. Default: 20
