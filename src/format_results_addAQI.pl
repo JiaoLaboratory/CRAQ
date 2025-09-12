@@ -8,8 +8,8 @@ open IN1,$file;
 
  while (<IN1>){
 	chomp;
-        next if/^[Short|#]/; 
- 
+		next if/Short Report:/;
+        next if/^#/ ;
 
  my ($chr,$cov,$lowf,$crh,$csh,$cre_raqi,$cse_saqi)=(split/\s+/);
  my $cre_1;
