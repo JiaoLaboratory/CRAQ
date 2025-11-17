@@ -140,7 +140,7 @@ my $genome_size_basename=basename($genome_size);
 
 my $genome_seq_path=abs_path($genome_seq);
 my $genome_seq_basename=basename($genome_seq);
-system("ln -s $genome_seq_path $output_dir_path");
+system("ln -s $genome_seq_path $output_dir_path/$genome_seq_basename");
 
 print "Running CRAQ analysis .........\nPARAMETERS:\n";
 print "Genome sequence(-g): $genome_seq\n";
