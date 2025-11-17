@@ -175,7 +175,7 @@ if (  -f $long_input ){
 	if ( -f $short_input1 or -f $short_input2){
 	my $long_input_path=abs_path($long_input);
         my $long_input_basename=basename($long_input);
-        system("ln -s $long_input_path $output_dir_path");
+        system("ln -s $long_input_path $output_dir_path/$long_input_basename");
         chdir($output_dir_path) or die "$!";
 	
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
@@ -191,8 +191,8 @@ if(@num==2){
         my $short_input1_basename=basename($short_input1);
 	my $short_input2_path=abs_path($short_input2);
         my $short_input2_basename=basename($short_input2);
-	system("ln -s $short_input1_path $output_dir_path");
-	system("ln -s $short_input2_path $output_dir_path");
+	system("ln -s $short_input1_path $output_dir_path/$short_input1_basename");
+	system("ln -s $short_input2_path $output_dir_path/$short_input2_basename");
 	chdir($output_dir_path) or die "$!";
 print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_basename -1  $short_input1_basename -2 $short_input2_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread  \n";
 
@@ -201,7 +201,7 @@ system("bash $bin_path/../src/runSR.sh -g $genome_seq_basename -z $genome_size_b
 if(@num==1){
 	my $short_input1_path=abs_path($short_input1);
         my $short_input1_basename=basename($short_input1);
-        system("ln -s $short_input1_path $output_dir_path");
+        system("ln -s $short_input1_path $output_dir_path/$short_input1_basename");
         chdir($output_dir_path) or die "$!";
 
 print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_basename -1  $short_input1_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread\n";
@@ -217,7 +217,7 @@ system("bash $bin_path/../src/runAQI.sh -g $genome_seq_basename  -z $genome_size
 if (  -f $long_input && ! -f $short_input1 && ! -f $short_input2 ){
 my $long_input_path=abs_path($long_input);
 my $long_input_basename=basename($long_input);
-system("ln -s $long_input_path $output_dir_path");
+system("ln -s $long_input_path $output_dir_path/$long_input_basename");
 chdir($output_dir_path) or die "$!";
 
 print "\nRunning SMS long-reads CRAQ analysis ......\n";
@@ -239,8 +239,8 @@ if(@num==2){
         my $short_input1_basename=basename($short_input1);
         my $short_input2_path=abs_path($short_input2);
         my $short_input2_basename=basename($short_input2);
-        system("ln -s $short_input1_path $output_dir_path");
-        system("ln -s $short_input2_path $output_dir_path");
+        system("ln -s $short_input1_path $output_dir_path/$short_input1_basename");
+        system("ln -s $short_input2_path $output_dir_path/$short_input2_basename");
         chdir($output_dir_path) or die "$!";
 
 print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_basename -1  $short_input1_basename -2 $short_input2_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread \n";
@@ -251,7 +251,7 @@ if(@num==1){
 my $short_input1_path=abs_path($short_input1);
         my $short_input1_basename=basename($short_input1);
         my $short_input2_path=abs_path($short_input2);
-        system("ln -s $short_input1_path $output_dir_path");
+        system("ln -s $short_input1_path $output_dir_path/$short_input1_basename");
         chdir($output_dir_path) or die "$!";
 
 print "CMD: $bin_path/../src/runSR.sh -g $genome_seq_basename  -z $genome_size_basename -1  $short_input1_basename -q $mapq -m $min_ngs_clip_num -f $he_cutoff_left -h $he_cutoff_right -r $ngs_clip_coverRate -a $ngs_coverage -t $thread\n";
